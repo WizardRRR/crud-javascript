@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&family=Lexend+Deca:wght@100..900&family=Libre+Franklin:ital@0;1&family=Manrope:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  /* colors */
+  --primary-color: #020206;
+  --secondary-color: #181818;
+  --tertiary-color: #738bec;
+  --white: #fff;
+
+  /* font family */
+  --primary-font: "Poppins";
+  --secondary-font: "secondaryfont";
+  --tertiary-font: "tertiaryfont";
+
+  /* fonst sizes */
+  font-size: 16px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+  --text-7xl: 72px;
+  --text-8xl: 96px;
+  --text-9xl: 128px;
+
+  /* font weigths */
+  --font-thin: 100;
+  --font-extralight: 200;
+  --font-ligth: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-weight: var(--font-regular);
+  font-family: var(--primary-font);
+  font-size: var(--text-base);
+  color: var(--white);
+}
+
+body {
+  display: grid;
+  grid-template-rows: 150px 1fr 150px;
+  background: var(--primary-color);
+  min-height: 100vh;
+}
+
+header {
+  align-self: center;
+  justify-self: center;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+}
+
+main {
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  gap: 100px;
+
+  & form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    button {
+      position: relative;
+      border: 2px solid var(--tertiary-color);
+      padding: 10px;
+      color: var(--tertiary-color);
+      text-transform: uppercase;
+      border-radius: 3px;
+      font-weight: var(--font-semibold);
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: #738bec;
+        z-index: -1;
+        opacity: 1;
+        transition: width 0.15s linear;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+      &:hover {
+        color: var(--white);
+      }
+    }
+  }
+
+  & section {
+    width: 300px;
+    max-height: 50vh;
+    scrollbar-gutter: stable;
+    padding-right: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    & div {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      padding-right: 50px;
+      background: var(--secondary-color);
+      border-left: 10px solid #d7f0ff;
+      border-radius: 8px;
+      font-weight: var(--font-medium);
+      
+      & span {
+        font-weight: inherit;
+      }
+
+      & span:nth-child(2) {
+        font-weight: initial;
+        font-size: var(--text-sm);
+      }
+
+      & button {
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        padding: 10px;
+        background: rebeccapurple;
+      }
+
+      & button:nth-of-type(1) {
+        top: 4px;
+        right: 4px;
+      }
+      & button:nth-of-type(2) {
+        bottom: 4px;
+        right: 4px;
+      }
+    }
+  }
+}
+
+.inputBox {
+  position: relative;
+
+  & input {
+    padding: 15px 20px;
+    outline: none;
+    background: transparent;
+    border-radius: 5px;
+    color: #fff;
+    border: 1px solid #ee8456;
+    font-size: 1em;
+  }
+
+  & span {
+    position: absolute;
+    left: 0;
+    padding: 15px 20px;
+    pointer-events: none;
+    font-size: 1em;
+    transition: 0.4s cubic-bezier(0.05, 0.81, 0, 0.93);
+    color: #ee8456;
+    letter-spacing: 0.1em;
+  }
+
+  & input:focus ~ span,
+  & input:valid ~ span {
+    font-size: 0.7em;
+    transform: translateX(14px) translateY(-7.5px);
+    padding: 0 5px;
+    border-radius: 2px;
+    background: #212121;
+    letter-spacing: 0em;
+    /* border: 1px solid #ee8456; */
+  }
+}
