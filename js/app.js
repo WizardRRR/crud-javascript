@@ -1,13 +1,16 @@
+import { editUser, getItemLocalStorage, setItemLocalStorage } from "./localstorage.js"
+
 const d = document
 
 // seleccionando elementos del DOM
 const WRAPPED_USERS = d.getElementById('wrapped-users')
 const FORM_USERS = d.getElementById('form-users')
 
-// lista de usuarios
-const users = []
+if (!localStorage.getItem('users')) {
+  localStorage.setItem('users', JSON.stringify([]))
+}
 
-paintUI(users)
+paintUI()
 
 // evento de enviar formulario
 FORM_USERS.addEventListener('submit', function (event) {
@@ -18,16 +21,19 @@ FORM_USERS.addEventListener('submit', function (event) {
   const lastName = d.getElementById('lastName')
   const age = d.getElementById('age')
 
+  const users = getItemLocalStorage('users')
   // añadiendo usuario a la lista de usuarios
   users.push({
     id: users.length + 1,
     name: name.value,
     lastName: lastName.value,
-    age: age.value
+    age: age.value,
+    deleteAt: null
   })
+  setItemLocalStorage('users', users)
 
   // pintando la UI
-  paintUI(users)
+  paintUI()
 
   // reseteando los inputs
   name.value = ''
@@ -35,11 +41,12 @@ FORM_USERS.addEventListener('submit', function (event) {
   age.value = ''
 })
 
-function paintUI(users) {
+function paintUI() {
   let templateHMTL = ``
-
+  const users = getItemLocalStorage('users')
   users.forEach(function (user, i) {
-    templateHMTL += `
+    if (user.deleteAt === null) {
+      templateHMTL += `
     <div>
         <span>${user.name} ${user.lastName}</span>
         <span>${user.age}</span>
@@ -51,6 +58,7 @@ function paintUI(users) {
         </button>
       </div>
   `
+    }
   })
 
   WRAPPED_USERS.innerHTML = templateHMTL
@@ -60,7 +68,7 @@ function paintUI(users) {
   buttonsDelete.forEach(function (buttonDelete) {
     d.getElementById(buttonDelete.id).addEventListener('click', function (e) {
       deleteUser(buttonDelete.id.split('-')[1])
-      paintUI(users)
+      paintUI()
     })
   })
 
@@ -93,7 +101,7 @@ BTN_UPDATE_USER.addEventListener('click', function () {
     age: d.getElementById('age').value
   }
   editUser(user)
-  paintUI(users)
+  paintUI()
   d.getElementById('btn-save-user').style.display = 'block'
   BTN_UPDATE_USER.style.display = 'none'
   // reseteando los inputs
@@ -103,24 +111,15 @@ BTN_UPDATE_USER.addEventListener('click', function () {
 })
 
 function deleteUser(idUser) {
-  const index = users.findIndex(function (user) {
-    return user.id == idUser
-  })
-  users.splice(index, 1)
-}
-
-function editUser(userObject) {
+  let users = getItemLocalStorage('users')
   let index
-  const currentUser = users.find(function (user, i) {
-    if (user.id === userObject.id) {
+  let currentUser = users.find(function (user, i) {
+    if (user.id == idUser) {
       index = i
       return true
     }
   })
-
-  currentUser.name = userObject.name
-  currentUser.lastName = userObject.lastName
-  currentUser.age = userObject.age
-
+  currentUser.deleteAt = new Date
   users.splice(index, 1, currentUser)
+  setItemLocalStorage('users', users)
 }
