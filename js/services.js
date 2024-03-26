@@ -1,27 +1,38 @@
 import { getItemLocalStorage, setItemLocalStorage } from './localstorage.js'
 
 /**
- * Obtiene un usuario por su ID.
- * @param {number} userId - El ID del usuario que se desea obtener.
- * @returns {Object|null} - El objeto de usuario correspondiente al ID proporcionado, o null si no se encuentra.
+ * @typedef {Object} User
+ * @property {number} id
+ * @property {string} name 
+ * @property {string} lastName
+ * @property {number} age
+ * @property {Date} createdAt
+ * @property {Date} updatedAt
+ * @property {Date} deletedAt
+ */
+
+/**
+ * @typedef {Object} newUser
+ * @property {string} name 
+ * @property {string} lastName
+ * @property {number} age 
+ */
+
+/**
+ * @param {number} userId 
+ * @returns {User|null}
  */
 export const getUserById = userId => {
   const users = getItemLocalStorage('users')
   return users.find(user => user.id === userId)
 }
 
-/**
- * Obtiene todos los usuarios.
- * @returns {Array} - Un array de objetos que representan a todos los usuarios almacenados.
- */
-export const getAllUsers = () => getItemLocalStorage('users')
+/** @returns {Array<User>}*/
+export const getAllUsers = () => getItemLocalStorage('users') ?? []
 
-/**
- * Guarda un nuevo usuario.
- * @param {Object} newUser - El nuevo usuario que se va a guardar.
- */
+/** @param {newUser} newUser */
 export const saveUser = newUser => {
-  const users = getItemLocalStorage('users') ?? []
+  const users = getAllUsers()
   users.push({
     id: users.length + 1,
     ...newUser,
@@ -32,32 +43,23 @@ export const saveUser = newUser => {
   setItemLocalStorage('users', users)
 }
 
-/**
- * Actualiza la información de un usuario existente.
- * @param {number} userId - El ID del usuario que se desea actualizar.
- * @param {Object} user - Un objeto que contiene las nuevas propiedades del usuario.
- */
-export const updateUser = (user) => {
-  const { id, name, lastName, age } = user
-  const users = getItemLocalStorage('users')
+/** @param {User} updateUser */
+export const updateUser = updateUser => {
+  const users = getAllUsers()
   const updatedUsers = users.map(user => {
-    if (user.id === id)
-      return { ...user, name, lastName, age, updatedUser: new Date }
+    if (user.id === updateUser.id)
+      return { ...user, ...updateUser, updatedUser: new Date }
     return user
   })
   setItemLocalStorage('users', updatedUsers)
 }
 
-/**
- * Elimina un usuario por su ID.
- * @param {number} userId - El ID del usuario que se desea eliminar.
- */
+/** @param {number} userId -*/
 export const deleteUser = userId => {
-  const users = getItemLocalStorage('users')
+  const users = getAllUsers()
   const updatedUsers = users.map(user => {
     if (user.id === userId) return { ...user, deletedAt: new Date }
     return user
   })
-  console.log(updatedUsers)
   setItemLocalStorage('users', updatedUsers)
 }
