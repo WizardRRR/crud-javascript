@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historial de Actividades</title>
+    <link rel="stylesheet" href="css/History.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Historial de Actividades</h1>
+      <div class="filter">
+        <label for="startDate">Desde:</label>
+        <input type="datetime-local" id="startDate" />
+        <label for="endDate">Hasta:</label>
+        <input type="datetime-local" id="endDate" />
+        <button onclick="filterActivities()">Filtrar</button>
+      </div>
+      <table id="activityTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="activityList">
+          <!-- Aquí se mostrarán las actividades -->
+        </tbody>
+      </table>
+    </div>
+    <script src="js/History.js"></script>
+  </body>
+</html>

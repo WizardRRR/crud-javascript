@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #191970;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #483D8B;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #ddd;
+}
+
+.filter {
+    text-align: center;
+    color: #f2f2f2;
+}
+
+#activityTable {
+    width: 100%;
+    margin:  20px 0 0;
+    border-collapse: collapse;
+}
+
+#activityTable th, #activityTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#activityTable th {
+    background-color: #f2f2f2;
+}
+
+#activityTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#activityTable tbody tr:hover {
+    background-color: #f2f2f2;
+}
