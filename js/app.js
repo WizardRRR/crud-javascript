@@ -3,6 +3,7 @@ import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
+import { notifications, buttons, toastDetails, removeToast, createToast } from './toast.js';
 
 const FORM = $('#form-users')
 
