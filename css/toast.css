@@ -66,6 +66,7 @@
         }
         }
 
+    /*notification line*/
     .toast::before {
         position: absolute;
         content: "";
@@ -73,7 +74,7 @@
         width: 100%;
         bottom: 0px;
         left: 0px;
-        animation: progress 5s linear forwards;
+        animation: progress var(--animation-duration) linear forwards;
     }
     
     @keyframes progress {
@@ -82,7 +83,7 @@
         }
     }
     
-    /*notification bars colors*/
+    /*notification line colors*/
     .toast.success::before {
         background: var(--success);
     }

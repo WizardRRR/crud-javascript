@@ -1,52 +1,48 @@
-
 export const notifications = document.querySelector(".notifications");
-export const buttons = document.querySelectorAll(".buttons .btn");
 
 export const toastDetails = {
-    timer: 5000,
+    timer: 4000,
     success: {
         icon: 'uil uil-check-circle',
-        text: 'Success: Mensaje de exito.',
+        text: 'Éxito',
     },
     danger: {
         icon: 'uil uil-exclamation-octagon',
-        text: 'Danger: Mensaje de peligro.',
+        text: 'Peligro',
     },
     warning: {
         icon: 'uil uil-exclamation-triangle',
-        text: 'Warning: Mensaje de advertencia.',
+        text: 'Advertencia',
     },
     info: {
         icon: 'uil uil-info-circle',
-        text: 'Info: Mensaje de información.',
+        text: 'Información',
     }
 };
 
 export const removeToast = (toast) => {
-    toast.classList.add("hide");
-    if(toast.timeoutId) clearTimeout(toast.timeoutId); // borrar tiempo de espera del toast
-    setTimeout(() => toast.remove(), 500); 
+    toast.classList.add("hide");//agregar animación salida
+    if(toast.timeoutId) clearTimeout(toast.timeoutId); 
+    setTimeout(() => toast.remove(), 300);//eliminar toast despues de la animación
 };
 
-export const createToast = (id) => {
-    const { icon, text } = toastDetails[id];
+export const createToast = (type, message, duration = toastDetails.timer) => {
     const toast = document.createElement("li");
-    toast.className = `toast ${id}`;
+    toast.className = `toast ${type}`;
+    // Si no se proporciona un mensaje, utiliza el mensaje predeterminado
+    const toastMessage = message || toastDetails[type].text; 
     toast.innerHTML = `<div class="column">
-                        <i class=" ${icon}"></i>
-                        <span>${text}</span>
+                        <i class="${toastDetails[type].icon}"></i>
+                        <span>${toastMessage}</span>
                     </div>
                     <i class="uil uil-times"></i>`;
     notifications.appendChild(toast);
-    toast.timeoutId = setTimeout(() => removeToast(toast), toastDetails.timer);
-    
-    // Manejar el evento de clic para eliminar el toast
+    //obtener id del temporizador y llamar a la función removeToast
+    toast.timeoutId = setTimeout(() => removeToast(toast), duration);
+    // Asigna la duración a la animación de toast before (line)
+    toast.style.setProperty('--animation-duration', duration + 'ms');
+    // Maneja el evento de clic x  para eliminar el toast 
     toast.querySelector(".uil-times").addEventListener("click", () => {
         removeToast(toast);
     });
 };
-
-// Agrego un evento de clic a cada botón para crear un toast cuando se haga clic (por el momento)
-buttons.forEach(btn => {
-    btn.addEventListener("click", () => createToast(btn.id));
-});
