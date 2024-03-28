@@ -1,49 +1,62 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #191970;
-    margin: 0;
+  display: grid;
+  grid-template-rows: 150px 1fr 150px;
+  background: var(--primary-color);
+  min-height: 100vh;
+}
+
+header {
+  align-self: center;
+  justify-self: center;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+}
+
+main {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
 .container {
-    max-width: 800px;
-    margin: auto;
-    background-color: #483D8B;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  max-width: 800px;
+  background-color: #483d8b;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+
+  & .filter {
+    display: flex;
+    gap: 25px;
+
+    & .container-field {
+        display: flex;
+        flex-direction: column;
+    }
+
+    & .container-field label {
+      font-weight: var(--font-medium);
+    }
+    & .container-field input {
+      color: #000;
+      height: 35px;
+      padding-inline: 10px;
+      border-radius: 6px;
+    }
+
+    & button {
+        align-self: end;
+        height: 35px;
+        padding: 5px 15px;
+        border-radius: 6px;
+        background: rgb(93, 184, 221);
+        font-weight: var(--font-bold);
+    }
+  }
 }
 
-h1 {
-    text-align: center;
-    color: #ddd;
-}
+/* estilo del contenedor de historiales */
+.wrapper-history {
 
-.filter {
-    text-align: center;
-    color: #f2f2f2;
-}
-
-#activityTable {
-    width: 100%;
-    margin:  20px 0 0;
-    border-collapse: collapse;
-}
-
-#activityTable th, #activityTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-#activityTable th {
-    background-color: #f2f2f2;
-}
-
-#activityTable tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-#activityTable tbody tr:hover {
-    background-color: #f2f2f2;
 }
