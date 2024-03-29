@@ -171,6 +171,8 @@ main {
     color: #fff;
     border: 1px solid #ee8456;
     font-size: 1em;
+    width: 100%;
+    min-height: 56px;
   }
 
   & span {
