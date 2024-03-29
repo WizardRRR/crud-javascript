@@ -3,6 +3,7 @@ import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
+import { createToast } from './toast.js';
 
 const FORM = $('#form-users')
 
@@ -33,6 +34,7 @@ function handleSubmitUpdateUser() {
   updateUser(user)
   updateUI()
   addListenersButton()
+  createToast("warning", `Se actualizo datos de un usuario`);
   $('#btn-save-user').style.display = 'block'
   $('#btn-update-user').style.display = 'none'
   resetFields()
@@ -45,6 +47,7 @@ function handleSubmitStoreUser() {
   const { value: lastName } = $('#lastName')
   const { value: age } = $('#age')
   saveUser({ name, lastName, age })
+  createToast("success", `Se creó el usuario ${name}`, 2000);
   updateUI()
   addListenersButton()
   resetFields()
