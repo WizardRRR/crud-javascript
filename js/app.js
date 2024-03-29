@@ -1,4 +1,4 @@
-import { addListenersButton, resetFields, updateUI } from './features.js'
+import { addListenersButton, resetFields, updateUI, updateUIFiltered } from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
@@ -20,6 +20,8 @@ FORM.addEventListener('submit', event => {
   if (currentMode === MODES_FORM.update) handleSubmitUpdateUser()
   if (currentMode === MODES_FORM.save) handleSubmitStoreUser()
 })
+
+$("#deleted-users").addEventListener("click", updateUIFiltered);
 
 $('#btn-update-user').addEventListener('click', handleSubmitUpdateUser)
 

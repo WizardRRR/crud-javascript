@@ -30,6 +30,10 @@ export const getUserById = userId => {
 /** @returns {Array<User>}*/
 export const getAllUsers = () => getItemLocalStorage('users') ?? []
 
+/** @returns {Array<User>}*/
+export const getAllFilteredUsers = () =>
+  getAllUsers().filter((user) => user.deletedAt !== null);
+
 /** @param {newUser} newUser */
 export const saveUser = newUser => {
   const users = getAllUsers()

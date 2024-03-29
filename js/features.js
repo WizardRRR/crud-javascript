@@ -1,4 +1,4 @@
-import { deleteUser, getAllUsers, getUserById } from './services.js'
+import { deleteUser, getAllUsers, getAllFilteredUsers, getUserById } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $, $$ } from './jquery.js'
 
@@ -28,6 +28,28 @@ export function updateUI() {
   })
   $('#wrapped-users').innerHTML = templateHMTL
 }
+
+export function updateUIFiltered() {
+  let templateHMTL = `
+    <span class="back">
+      <img width=20 height=20 src='./assets/icon-back.svg'/>
+      Go Back
+    </span>`;
+  getAllFilteredUsers().forEach((user) => {
+    templateHMTL += `
+      <div style="border-left: 10px solid ${user.color}" id='${user.id}'>
+        <span>${user.name} ${user.lastName}</span>
+        <span>${user.age}</span>
+        <button id='restore-${user.id}' class='btn-restore-user'>
+          <img width=25 height=25 src='./assets/icon-restore.svg'/>
+        </button>
+      </div>
+      `;
+  });
+  $("#wrapped-users").innerHTML = templateHMTL;
+  $(".back").addEventListener("click", () => updateUI());
+}
+
 
 export function addListenersButton() {
 
