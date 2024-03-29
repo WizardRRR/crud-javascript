@@ -1,6 +1,6 @@
 import { addListenersButton, resetFields, updateUI } from "./features.js";
 import { setItemLocalStorage } from "./localstorage.js";
-import { saveUser, updateUser, getAllUsers, deleteUser } from "./services.js";
+import { saveUser, updateUser } from "./services.js";
 import { MODES_FORM } from "./mode-forms.js";
 import { $ } from "./jquery.js";
 import { confirmAction } from "./confirmation.js";
@@ -35,6 +35,7 @@ function handleSubmitStoreUser() {
   resetFields();
   $("#name").focus();
 }
+
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem("users")) setItemLocalStorage("users", []);
 updateUI();
@@ -64,19 +65,4 @@ $("#btn-update-user").addEventListener("click", () => {
   if (confirmAction("¿Estás seguro de actualizar este usuario?")) {
     handleSubmitUpdateUser();
   }
-});
-
-$$(".button-delete").forEach((buttonDelete) => {
-  $(`#${buttonDelete.id}`).addEventListener("click", () => {
-    if (confirmAction("¿Estás seguro de eliminar este usuario?")) {
-      deleteUser(parseInt(buttonDelete.id.split("-")[1]));
-      updateUI();
-      resetFields();
-      addListenersButton();
-      $("#btn-save-user").style.display = "block";
-      $("#form-users").setAttribute("mode", MODES_FORM.save);
-      $("#btn-update-user").style.display = "none";
-      $("#name").focus();
-    }
-  });
 });
