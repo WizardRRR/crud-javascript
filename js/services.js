@@ -42,7 +42,7 @@ export const saveUser = newUser => {
     ...newUser,
     createdAt: new Date,
     updatedAt: null,
-    deletedAt: null
+    deletedAt: null 
   })
   setItemLocalStorage('users', users)
 }
