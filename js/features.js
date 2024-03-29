@@ -8,25 +8,33 @@ export function resetFields() {
   $('#age').value = ''
 }
 
-export function updateUI() {
-  let templateHMTL = ``
-  getAllUsers().forEach((user) => {
+export function updateUI(filterTerm = '') {
+  let templateHMTL = ``;
+  const users = getAllUsers();
+
+  users.forEach(user => {
     if (user.deletedAt === null) {
-      templateHMTL += `
-      <div id='${user.id}'>
-        <span>${user.name} ${user.lastName}</span>
-        <span>${user.age}</span>
-        <button id='edit-${user.id}' class='button-edit'>
-          <img width=25 height=25 src='./assets/icon-edit.svg'/>
-        </button>
-        <button id='delete-${user.id}' class='button-delete'>
-          <img width=25 height=25 src='./assets/icon-delete.svg'/>
-        </button>
-      </div>
-      `
+      const searchTerm = filterTerm.toLowerCase();
+      const nameMatch = user.name.toLowerCase().includes(searchTerm);
+      const lastNameMatch = user.lastName.toLowerCase().includes(searchTerm);
+
+      if (nameMatch || lastNameMatch) {
+        templateHMTL += `
+        <div id='${user.id}'>
+          <span>${user.name} ${user.lastName}</span>
+          <span>${user.age}</span>
+          <button id='edit-${user.id}' class='button-edit'>
+            <img width=25 height=25 src='./assets/icon-edit.svg'/>
+          </button>
+          <button id='delete-${user.id}' class='button-delete'>
+            <img width=25 height=25 src='./assets/icon-delete.svg'/>
+          </button>
+        </div>
+        `
+      }
     }
   })
-  $('#wrapped-users').innerHTML = templateHMTL
+  $('#wrapped-users').innerHTML = templateHMTL;
 }
 
 export function addListenersButton() {
@@ -58,4 +66,8 @@ export function addListenersButton() {
       $('#name').focus()
     })
   })
+}
+
+export function displayCounter(count){
+  $('.search-counter').textContent = `Usuarios encontrados: ${count}`
 }

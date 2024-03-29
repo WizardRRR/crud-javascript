@@ -1,6 +1,6 @@
-import { addListenersButton, resetFields, updateUI } from './features.js'
+import { addListenersButton, resetFields, updateUI, displayCounter } from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
-import { saveUser, updateUser } from './services.js'
+import { getAllUsers, saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
 
@@ -50,3 +50,38 @@ function handleSubmitStoreUser() {
   resetFields()
   $('#name').focus()
 }
+
+/**Barra busqqueda y contador */
+
+function searchBar() {
+  $('#search');
+  $('.search-counter');
+
+  const totalUserCount = getAllUsers().filter(user => user.deletedAt === null).length;
+  displayCounter(totalUserCount);
+
+  $('#search').addEventListener('input', event => {
+    const searchTerm = event.target.value.toLowerCase();
+    const users = getAllUsers();
+    let counter = 0;
+
+    users.forEach(user => {
+      if (user.deletedAt === null) {
+        const search = user.name.toLowerCase().includes(searchTerm) || user.lastName.toLowerCase().includes(searchTerm)
+        if (search) {
+          counter++
+        }
+      }
+    })
+    updateUI(searchTerm);
+    displayCounter(counter);
+  })
+}
+searchBar()
+
+
+
+
+
+
+
