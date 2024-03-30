@@ -101,6 +101,7 @@ main {
       &:hover::after {
         width: 100%;
       }
+
       &:hover {
         color: var(--white);
       }
@@ -120,6 +121,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-x: hidden;
+    scrollbar-color: #232323 transparent;
 
     & div {
       position: relative;
@@ -152,6 +155,7 @@ main {
         top: 4px;
         right: 4px;
       }
+
       & button:nth-of-type(2) {
         background: red;
         bottom: 4px;
@@ -195,5 +199,21 @@ main {
     border-radius: 2px;
     background: #212121;
     letter-spacing: 0em;
+  }
+}
+
+.deleted {
+  animation: delt-ani 1s ease;
+}
+
+@keyframes delt-ani {
+  from {
+    transform: translate(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(150%);
+    opacity: 0;
   }
 }

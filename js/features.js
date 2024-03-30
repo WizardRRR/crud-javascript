@@ -41,19 +41,23 @@ export function updateUI(filterTerm = '') {
   $('#wrapped-users').innerHTML = templateHMTL
 }
 
+
+
 export function addListenersButton() {
   $$('.button-delete').forEach((buttonDelete) => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
-      const name = getUserById(parseInt(buttonDelete.id.split('-')[1])).name//Obtener nombre del usuario eliminado 
-      deleteUser(parseInt(buttonDelete.id.split('-')[1]))
-      updateUI()
-      resetFields()
-      addListenersButton()
-      createToast('danger', `Se eliminó el usuario ${name}`, 8000)
-      $('#btn-save-user').style.display = 'block'
-      $('#form-users').setAttribute('mode', MODES_FORM.save)
-      $('#btn-update-user').style.display = 'none'
-      $('#name').focus()
+      $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
+      $(`#${buttonDelete.id}`).parentNode.addEventListener('animationend', () => {
+        deleteUser(parseInt(buttonDelete.id.split('-')[1]))
+        createToast('danger', `Se eliminó el usuario ${name}`, 8000)
+        updateUI()
+        resetFields()
+        addListenersButton()
+        $('#btn-save-user').style.display = 'block'
+        $('#form-users').setAttribute('mode', MODES_FORM.save)
+        $('#btn-update-user').style.display = 'none'
+        $('#name').focus()
+      })
     })
   })
 
@@ -62,6 +66,7 @@ export function addListenersButton() {
       const currentUser = getUserById(parseInt(buttonEdit.id.split('-')[1]))
       const name = getUserById(parseInt(buttonEdit.id.split('-')[1])).name//Obtener nombre del usuario
       createToast('info', `Se está editando el usuario ${name}`, 2000)
+
       // seleccionando inputs
       $('#name').value = currentUser.name
       $('#lastName').value = currentUser.lastName
