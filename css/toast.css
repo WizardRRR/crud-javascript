@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&family=Lexend+Deca:wght@100..900&family=Libre+Franklin:ital@0;1&family=Manrope:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+    --success: #0ABF30;
+    --danger: #ff0000;
+    --warning: #E9BD0C;
+    --info: #3498DB;
+    }
+
+    /*notification boxes*/
+    .notifications {
+        position: fixed;
+        top: 30px;
+        right: 20px;
+    }
+
+    .notifications :where(.toast, .column) {
+        display: flex;
+        align-items: center;
+    }
+
+    .notifications .toast {
+        width: 320px;
+        position: relative;
+        overflow: hidden;
+        list-style: none;
+        border-radius: 5px;
+        padding: 16px 17px;
+        margin-bottom: 10px;
+        background: var(--white);
+        justify-content: space-between;
+        animation: show_toast 0.3s ease forwards;
+    }
+    
+    /*notification animation*/
+    @keyframes show_toast {
+        0% {
+            transform: translateX(100%);
+        }
+        40% {
+            transform: translateX(-5%);
+        }
+        80% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-10px);
+        }
+    }
+    
+    .notifications .toast.hide {
+        animation: hide_toast 0.3s ease forwards;
+        }
+    
+        @keyframes hide_toast {
+        0% {
+            transform: translateX(-10px);
+        }
+        40% {
+            transform: translateX(0%);
+        }
+        80% {
+            transform: translateX(-5%);
+        }
+        100% {
+            transform: translateX(calc(100% + 20px));
+        }
+        }
+
+    /*notification line*/
+    .toast::before {
+        position: absolute;
+        content: "";
+        height: 3px;
+        width: 100%;
+        bottom: 0px;
+        left: 0px;
+        animation: progress var(--animation-duration) linear forwards;
+    }
+    
+    @keyframes progress {
+        100% {
+            width: 0%;
+        }
+    }
+    
+    /*notification line colors*/
+    .toast.success::before {
+        background: var(--success);
+    }
+    .toast.danger::before{
+        background: var(--danger);
+    }
+    .toast.warning::before {
+        background: var(--warning);
+    }
+    .toast.info::before{
+        background: var(--info);
+    }
+    
+    /*notification icons colors*/
+    .toast .column i {
+        font-size: 1.75rem;
+    }
+    .toast.success .column i {
+        color: var(--success);
+    }
+    .toast.danger .column i {
+        color: var(--danger);
+    }
+    .toast.warning .column i {
+        color: var(--warning);
+    }
+    .toast.info .column i {
+        color: var(--info);
+    }
+    .toast .column span {
+        font-size: 0.8rem;
+        margin-left: 12px;
+        color: var(--primary-color);
+    }
+    .toast i:last-child {
+        color: var(--primary-color);
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+    .toast i:last-child:hover {
+        color: var(--secondary-color);
+    }
+
+    /*responsive*/
+    @media screen and (max-width: 530px) {
+        .notifications {
+            width: 90%;
+        }
+        .notifications .toast {
+            width: 100%;
+            margin-left: 20px;
+        }
+    }
