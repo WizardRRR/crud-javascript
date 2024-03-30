@@ -29,11 +29,15 @@ export function updateUI() {
   $('#wrapped-users').innerHTML = templateHMTL
 }
 
+
+
 export function addListenersButton() {
 
   $$('.button-delete').forEach(buttonDelete => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
-      $(`#${buttonDelete.id}`).parentNode.classList.add('deleted');
+      $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
+      const parentElement = $(`#${buttonDelete.id}`).parentNode.parentNode;
+    
       setTimeout(() => {
       deleteUser(parseInt(buttonDelete.id.split('-')[1]))
       updateUI()
@@ -43,13 +47,20 @@ export function addListenersButton() {
       $('#form-users').setAttribute('mode', MODES_FORM.save)
       $('#btn-update-user').style.display = 'none'
       $('#name').focus()
+      $(`#${buttonDelete.id}`).classList.remove('deleted');
+  
+   
     }, 300); 
-    })
+   
+    });
+    
+    
   })
 
   $$('.button-edit').forEach((buttonEdit) => {
     $(`#${buttonEdit.id}`).addEventListener('click', () => {
       const currentUser = getUserById(parseInt(buttonEdit.id.split('-')[1]))
+      
       // seleccionando inputs
       $('#name').value = currentUser.name
       $('#lastName').value = currentUser.lastName
