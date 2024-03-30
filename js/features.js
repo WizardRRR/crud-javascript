@@ -1,19 +1,22 @@
-import { deleteUser, getAllUsers, getUserById } from "./services.js";
-import { MODES_FORM } from "./mode-forms.js";
-import { $, $$ } from "./jquery.js";
+import { deleteUser, getAllUsers, getUserById } from "./services.js"
+import { MODES_FORM } from "./mode-forms.js"
+import { observeNewElements } from './app.js'
+import { $, $$ } from "./jquery.js"
+
 
 export function resetFields() {
-  $("#name").value = "";
-  $("#lastName").value = "";
-  $("#age").value = "";
+  $("#name").value = ""
+  $("#lastName").value = ""
+  $("#age").value = ""
 }
+
 
 export function updateUI() {
   let templateHMTL = ``;
   getAllUsers().forEach((user) => {
     if (user.deletedAt === null) {
       templateHMTL += `
-      <div id='${user.id}' class='user'>
+      <div id='${user.id}'>
         <span>${user.name} ${user.lastName}</span>
         <span>${user.age}</span>
         <button id='edit-${user.id}' class='button-edit'>
@@ -26,44 +29,51 @@ export function updateUI() {
       `;
     }
   });
-  $("#wrapped-users").innerHTML = templateHMTL;
+  $("#wrapped-users").innerHTML = templateHMTL
+  $$("#wrapped-users > div").forEach(element => {
+    element.classList.add('user')
+  });
 }
+
 
 export function addListenersButton() {
   $$(".button-delete").forEach((buttonDelete) => {
     $(`#${buttonDelete.id}`).addEventListener("click", () => {
-      deleteUser(parseInt(buttonDelete.id.split("-")[1]));
-      updateUI();
-      resetFields();
-      addListenersButton();
-      $("#btn-save-user").style.display = "block";
-      $("#form-users").setAttribute("mode", MODES_FORM.save);
-      $("#btn-update-user").style.display = "none";
-      $("#name").focus();
+      deleteUser(parseInt(buttonDelete.id.split("-")[1]))
+      updateUI()
+      resetFields()
+      addListenersButton()
+      observeNewElements()
+      $("#btn-save-user").style.display = "block"
+      $("#form-users").setAttribute("mode", MODES_FORM.save)
+      $("#btn-update-user").style.display = "none"
+      $("#name").focus()
     });
   });
 
+
   $$(".button-edit").forEach((buttonEdit) => {
     $(`#${buttonEdit.id}`).addEventListener("click", () => {
-      const currentUser = getUserById(parseInt(buttonEdit.id.split("-")[1]));
+      const currentUser = getUserById(parseInt(buttonEdit.id.split("-")[1]))
       // seleccionando inputs
-      $("#name").value = currentUser.name;
-      $("#lastName").value = currentUser.lastName;
-      $("#age").value = currentUser.age;
-      $("#btn-update-user").setAttribute("user-id", currentUser.id);
-      $("#btn-save-user").style.display = "none";
-      $("#btn-update-user").style.display = "block";
-      $("#form-users").setAttribute("mode", MODES_FORM.update);
-      $("#name").focus();
+      $("#name").value = currentUser.name
+      $("#lastName").value = currentUser.lastName
+      $("#age").value = currentUser.age
+      $("#btn-update-user").setAttribute("user-id", currentUser.id)
+      $("#btn-save-user").style.display = "none"
+      $("#btn-update-user").style.display = "block"
+      $("#form-users").setAttribute("mode", MODES_FORM.update)
+      $("#name").focus()
     });
   });
 }
 
+
 export function newUserAnimation() {
-  const newUser = $("#wrapped-users").lastElementChild;
-  newUser.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  const newUser = $("#wrapped-users").lastElementChild
+  newUser.scrollIntoView({ behavior: 'smooth', block: 'end' })
   newUser.addEventListener('animationend', () => {
-    newUser.classList.remove("animation");
+    newUser.classList.remove('animation')
   });
-  newUser.classList.add("animation");
+  newUser.classList.add('animation')
 }

@@ -4,7 +4,9 @@ import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ , $$} from './jquery.js'
 
+
 const FORM = $('#form-users')
+
 
 const options={
   root: null,
@@ -12,12 +14,14 @@ const options={
   threshold:.3
 }
 
+
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
 updateUI()
 addListenersButton()
 $('#name').focus()
 FORM.setAttribute('mode', MODES_FORM.save)
+
 
 // añadiendo evento de enviar formulario
 FORM.addEventListener('submit', event => {
@@ -27,7 +31,9 @@ FORM.addEventListener('submit', event => {
   if (currentMode === MODES_FORM.save) handleSubmitStoreUser()
 })
 
+
 $('#btn-update-user').addEventListener('click', handleSubmitUpdateUser)
+
 
 function handleSubmitUpdateUser() {
   const user = {
@@ -39,12 +45,14 @@ function handleSubmitUpdateUser() {
   updateUser(user)
   updateUI()
   addListenersButton()
+  observeNewElements()
   $('#btn-save-user').style.display = 'block'
   $('#btn-update-user').style.display = 'none'
   resetFields()
   $('#name').focus()
   FORM.setAttribute('mode', MODES_FORM.save)
 }
+
 
 function handleSubmitStoreUser() {
   const { value: name } = $('#name')
@@ -55,20 +63,30 @@ function handleSubmitStoreUser() {
   newUserAnimation()
   resetFields()
   addListenersButton()
+  observeNewElements()
   $('#name').focus()
 }
+
 
 function triggerAnimation(entries) {
   entries.forEach(entry => {
     const element = entry.target;
-    element.classList.toggle('unset', entry.isIntersecting);
+    element.classList.toggle('unset', entry.isIntersecting)
   });
 }
 
-const elements = $$("#wrapped-users > div");
 
-const observer = new IntersectionObserver(triggerAnimation,options);
+const observer = new IntersectionObserver(triggerAnimation,options)
 
-elements.forEach(element => {
+
+$$("#wrapped-users > div").forEach(element => {
   observer.observe(element);
 });
+
+
+export function observeNewElements() {
+  const newElements = $$("#wrapped-users > div:not(.unset)")
+  newElements.forEach(element => {
+    observer.observe(element)
+  });
+}
