@@ -120,6 +120,10 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-x: hidden;
+    scrollbar-color: #232323 transparent;
+
+   
 
     & div {
       position: relative;
@@ -131,6 +135,8 @@ main {
       border-left: 10px solid #d7f0ff;
       border-radius: 8px;
       font-weight: var(--font-medium);
+     
+   
 
       & span {
         font-weight: inherit;
@@ -194,25 +200,25 @@ main {
     border-radius: 2px;
     background: #212121;
     letter-spacing: 0em;
-    /* border: 1px solid #ee8456; */
   }
 
 }
 
 
-.deleted {
- animation: delt-ani 2s ease;
-}
-
-@keyframes delt-ani{
-
-  from{
-    transform: translate(0%);
-    opacity: 1;
+  .deleted {
+    animation: delt-ani 1s ease;
+ 
   }
 
-  to{
-    transform: translate(250%);
-    opacity: 0;
+  @keyframes delt-ani{
+    from{
+      transform: translate(0%);
+      opacity: 1;
+    }
+
+    to{
+      transform: translate(200%);
+      opacity: 0;
+    }
   }
-}
+

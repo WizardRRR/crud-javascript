@@ -43,7 +43,7 @@ export function addListenersButton() {
       $('#form-users').setAttribute('mode', MODES_FORM.save)
       $('#btn-update-user').style.display = 'none'
       $('#name').focus()
-    }, 600); 
+    }, 300); 
     })
   })
 
