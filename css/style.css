@@ -201,6 +201,18 @@ main {
 
 
 .deleted {
-  transition: left 0.45s ease-in-out; 
-  background-color: #d7f0ff;
+ animation: delt-ani 2s ease;
+}
+
+@keyframes delt-ani{
+
+  from{
+    transform: translate(0%);
+    opacity: 1;
+  }
+
+  to{
+    transform: translate(250%);
+    opacity: 0;
+  }
 }

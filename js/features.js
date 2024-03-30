@@ -33,7 +33,7 @@ export function addListenersButton() {
 
   $$('.button-delete').forEach(buttonDelete => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
-      $(`#${buttonDelete.id}`).classList.add('deleted');
+      $(`#${buttonDelete.id}`).parentNode.classList.add('deleted');
       setTimeout(() => {
       deleteUser(parseInt(buttonDelete.id.split('-')[1]))
       updateUI()
@@ -43,7 +43,7 @@ export function addListenersButton() {
       $('#form-users').setAttribute('mode', MODES_FORM.save)
       $('#btn-update-user').style.display = 'none'
       $('#name').focus()
-    }, 500); 
+    }, 600); 
     })
   })
 
