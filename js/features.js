@@ -33,11 +33,11 @@ export function updateUIFiltered() {
   let templateHMTL = `
     <span class="back">
       <img width=20 height=20 src='./assets/icon-back.svg'/>
-      Go Back
+      Regresar
     </span>`;
   getAllFilteredUsers().forEach((user) => {
     templateHMTL += `
-      <div style="border-left: 10px solid ${user.color}" id='${user.id}'>
+      <div id='${user.id}'>
         <span>${user.name} ${user.lastName}</span>
         <span>${user.age}</span>
         <button id='restore-${user.id}' class='btn-restore-user'>
