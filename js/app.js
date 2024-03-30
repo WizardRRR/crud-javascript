@@ -1,6 +1,6 @@
-import { addListenersButton, resetFields, updateUI, displayCounter } from './features.js'
+import { addListenersButton, resetFields, updateUI } from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
-import { getAllUsers, saveUser, updateUser } from './services.js'
+import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
 import { createToast } from './toast.js'
@@ -15,7 +15,7 @@ $('#name').focus()
 FORM.setAttribute('mode', MODES_FORM.save)
 
 // añadiendo evento de enviar formulario
-FORM.addEventListener('submit', event => {
+FORM.addEventListener('submit', (event) => {
   event.preventDefault()
   const currentMode = FORM.getAttribute('mode')
   if (currentMode === MODES_FORM.update) handleSubmitUpdateUser()
@@ -29,7 +29,10 @@ function handleSubmitUpdateUser() {
     id: parseInt($('#btn-update-user').getAttribute('user-id')),
     name: $('#name').value,
     lastName: $('#lastName').value,
-    age: $('#age').value
+    age: $('#age').value,
+    city: $('#city').value,
+    color: $('#color').value,
+    urlImage: $('#urlImage').value,
   }
   updateUser(user)
   updateUI()
@@ -46,8 +49,12 @@ function handleSubmitStoreUser() {
   const { value: name } = $('#name')
   const { value: lastName } = $('#lastName')
   const { value: age } = $('#age')
-  saveUser({ name, lastName, age })
-  createToast('success', `Se creó el usuario ${name}`, 2000)
+  const { value: city } = $('#city')
+  const { value: color } = $('#color')
+  const { value: urlImage } = $('#urlImage')
+  saveUser({ name, lastName, age, city, color, urlImage })
+  createToast("success", `Se creó el usuario ${name}`, 2000);
+
   updateUI()
   addListenersButton()
   resetFields()
@@ -77,11 +84,4 @@ $('#search').addEventListener('input', event => {
   updateUI(searchTerm)
   displayCounter(counter)
 })
-
-
-
-
-
-
-
 

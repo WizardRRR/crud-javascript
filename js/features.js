@@ -7,6 +7,9 @@ export function resetFields() {
   $('#name').value = ''
   $('#lastName').value = ''
   $('#age').value = ''
+  $('#city').value = ''
+  $('#color').value = ''
+  $('#urlImage').value = ''
 }
 
 export function updateUI(filterTerm = '') {
@@ -39,8 +42,7 @@ export function updateUI(filterTerm = '') {
 }
 
 export function addListenersButton() {
-
-  $$('.button-delete').forEach(buttonDelete => {
+  $$('.button-delete').forEach((buttonDelete) => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
       const name = getUserById(parseInt(buttonDelete.id.split('-')[1])).name//Obtener nombre del usuario eliminado 
       deleteUser(parseInt(buttonDelete.id.split('-')[1]))
@@ -64,6 +66,9 @@ export function addListenersButton() {
       $('#name').value = currentUser.name
       $('#lastName').value = currentUser.lastName
       $('#age').value = currentUser.age
+      $('#city').value = currentUser.city
+      $('#color').value = currentUser.color
+      $('#urlImage').value = currentUser.urlImage
       $('#btn-update-user').setAttribute('user-id', currentUser.id)
       $('#btn-save-user').style.display = 'none'
       $('#btn-update-user').style.display = 'block'
@@ -71,8 +76,4 @@ export function addListenersButton() {
       $('#name').focus()
     })
   })
-}
-
-export function displayCounter(count){
-  $('.search-counter').textContent = `Usuarios encontrados: ${count}`
 }
