@@ -50,5 +50,3 @@ function handleSubmitStoreUser() {
   resetFields()
   $('#name').focus()
 }
-
-

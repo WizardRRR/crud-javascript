@@ -123,8 +123,6 @@ main {
     overflow-x: hidden;
     scrollbar-color: #232323 transparent;
 
-   
-
     & div {
       position: relative;
       display: flex;
@@ -135,8 +133,6 @@ main {
       border-left: 10px solid #d7f0ff;
       border-radius: 8px;
       font-weight: var(--font-medium);
-     
-   
 
       & span {
         font-weight: inherit;
@@ -201,40 +197,20 @@ main {
     background: #212121;
     letter-spacing: 0em;
   }
-
 }
 
+.deleted {
+  animation: delt-ani 1s ease;
+}
 
-  .deleted {
-    animation: delt-ani 1s ease;
- 
+@keyframes delt-ani {
+  from {
+    transform: translate(0%);
+    opacity: 1;
   }
 
-  @keyframes delt-ani{
-    from{
-      transform: translate(0%);
-      opacity: 1;
-    }
-
-    to{
-      transform: translate(200%);
-      opacity: 0;
-    }
+  to {
+    transform: translate(150%);
+    opacity: 0;
   }
-
-  .animaciones{
-    animation: opa-all 1s ease;
-
-  }
-
-
-  @keyframes opa-all {
-    from{
-      opacity: 1;
- 
-    }
-
-    to{
-      opacity: 0;
-    }
-  }
+}

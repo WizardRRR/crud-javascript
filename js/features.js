@@ -36,31 +36,23 @@ export function addListenersButton() {
   $$('.button-delete').forEach(buttonDelete => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
       $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
-      const parentElement = $(`#${buttonDelete.id}`).parentNode.parentNode;
-    
-      setTimeout(() => {
-      deleteUser(parseInt(buttonDelete.id.split('-')[1]))
-      updateUI()
-      resetFields()
-      addListenersButton()
-      $('#btn-save-user').style.display = 'block'
-      $('#form-users').setAttribute('mode', MODES_FORM.save)
-      $('#btn-update-user').style.display = 'none'
-      $('#name').focus()
-      $(`#${buttonDelete.id}`).classList.remove('deleted');
-  
-   
-    }, 300); 
-   
-    });
-    
-    
+      $(`#${buttonDelete.id}`).parentNode.addEventListener('animationend', () => {
+        deleteUser(parseInt(buttonDelete.id.split('-')[1]))
+        updateUI()
+        resetFields()
+        addListenersButton()
+        $('#btn-save-user').style.display = 'block'
+        $('#form-users').setAttribute('mode', MODES_FORM.save)
+        $('#btn-update-user').style.display = 'none'
+        $('#name').focus()
+      })
+    })
   })
 
   $$('.button-edit').forEach((buttonEdit) => {
     $(`#${buttonEdit.id}`).addEventListener('click', () => {
       const currentUser = getUserById(parseInt(buttonEdit.id.split('-')[1]))
-      
+
       // seleccionando inputs
       $('#name').value = currentUser.name
       $('#lastName').value = currentUser.lastName
