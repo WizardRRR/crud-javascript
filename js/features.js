@@ -64,3 +64,46 @@ export function addListenersButton() {
     })
   })
 }
+export function orderByRecent() {
+  const users = getAllUsers().filter(user => user.deletedAt === null)
+  users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  displayUsers(users)
+}
+
+export function orderByAncient() {
+  const users = getAllUsers().filter(user => user.deletedAt === null)
+  users.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+  displayUsers(users)
+}
+
+export function orderByAge() {
+  const users = getAllUsers().filter(user => user.deletedAt === null)
+  users.sort((a, b) => a.age - b.age)
+  displayUsers(users)
+}
+
+export function orderByAlphabet() {
+  const users = getAllUsers().filter(user => user.deletedAt === null)
+  users.sort((a, b) => a.name.localeCompare(b.name))
+  displayUsers(users)
+}
+
+function displayUsers(users) {
+  let templateHMTL = ``
+  users.forEach((user) => {
+    templateHMTL += `
+      <div id='${user.id}'>
+        <span>${user.name} ${user.lastName}</span>
+        <span>${user.age}</span>
+        <button id='edit-${user.id}' class='button-edit'>
+          <img width=25 height=25 src='./assets/icon-edit.svg'/>
+        </button>
+        <button id='delete-${user.id}' class='button-delete'>
+          <img width=25 height=25 src='./assets/icon-delete.svg'/>
+        </button>
+      </div>
+    `;
+  });
+  $('#wrapped-users').innerHTML = templateHMTL
+  addListenersButton();
+}

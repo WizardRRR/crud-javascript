@@ -84,6 +84,7 @@ main {
       text-transform: uppercase;
       border-radius: 3px;
       font-weight: var(--font-semibold);
+      margin-top: 10px;
 
       &::after {
         content: "";
@@ -105,10 +106,7 @@ main {
         color: var(--white);
       }
     }
-
-    & button:nth-of-type(2) {
-      display: none;
-    }
+  
   }
 
   & section {

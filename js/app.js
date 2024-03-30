@@ -1,4 +1,4 @@
-import { addListenersButton, resetFields, updateUI } from './features.js'
+import { addListenersButton, resetFields, updateUI, orderByRecent, orderByAncient, orderByAge, orderByAlphabet } from './features.js';
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
@@ -6,6 +6,7 @@ import { $ } from './jquery.js'
 import { createToast } from './toast.js';
 
 const FORM = $('#form-users')
+const SEEKS_FORM = $('#seeks')
 
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
@@ -41,6 +42,13 @@ function handleSubmitUpdateUser() {
   $('#name').focus()
   FORM.setAttribute('mode', MODES_FORM.save)
 }
+SEEKS_FORM.addEventListener('click', event => {
+  const target = event.target;
+  if (target.id === 'recent') orderByRecent();
+  if (target.id === 'ancient') orderByAncient();
+  if (target.id === 'ageOrder') orderByAge();
+  if (target.id === 'alphabet') orderByAlphabet();
+});
 
 function handleSubmitStoreUser() {
   const { value: name } = $('#name')
