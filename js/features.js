@@ -7,16 +7,25 @@ export function resetFields() {
   $('#name').value = ''
   $('#lastName').value = ''
   $('#age').value = ''
+  $('#city').value = ''
+  $('#color').value = ''
+  $('#urlImage').value = ''
 }
 
 export function updateUI() {
   let templateHMTL = ``
   getAllUsers().forEach((user) => {
+    let url = 'Puedes Agregar una imágen!'
+    if (user.urlImage && user.urlImage.startsWith('https://')) {
+      url = `<img width=250 src='${user.urlImage}' alt='${user.name}'s Image' />`
+    }
     if (user.deletedAt === null) {
       templateHMTL += `
-      <div id='${user.id}'>
+      <div style='border-left: 10px solid ${user.color}' id='${user.id}'>
         <span>${user.name} ${user.lastName}</span>
         <span>${user.age}</span>
+        <span>${user.city}</span>
+        ${url}
         <button id='edit-${user.id}' class='button-edit'>
           <img width=25 height=25 src='./assets/icon-edit.svg'/>
         </button>
@@ -31,8 +40,7 @@ export function updateUI() {
 }
 
 export function addListenersButton() {
-
-  $$('.button-delete').forEach(buttonDelete => {
+  $$('.button-delete').forEach((buttonDelete) => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
       const name = getUserById(parseInt(buttonDelete.id.split('-')[1])).name;//Obtener nombre del usuario eliminado 
       deleteUser(parseInt(buttonDelete.id.split('-')[1]))
@@ -56,6 +64,9 @@ export function addListenersButton() {
       $('#name').value = currentUser.name
       $('#lastName').value = currentUser.lastName
       $('#age').value = currentUser.age
+      $('#city').value = currentUser.city
+      $('#color').value = currentUser.color
+      $('#urlImage').value = currentUser.urlImage
       $('#btn-update-user').setAttribute('user-id', currentUser.id)
       $('#btn-save-user').style.display = 'none'
       $('#btn-update-user').style.display = 'block'
