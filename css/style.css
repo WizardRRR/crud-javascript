@@ -110,6 +110,18 @@ main {
     }
   }
 
+  section::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  section::-webkit-scrollbar-thumb {
+    background: #b45f3a;
+    border-radius: 6px;
+    -webkit-scrollbar-thumb:hover {
+    background: #80452c;
+    width: 10px;
+  }
+
   & section {
     width: 300px;
     max-height: 50vh;
@@ -199,9 +211,11 @@ main {
 }
 
 
+/* Animaciones de entrada y scroll */
 .animation {
   animation: animationAdd .6s ease;
 }
+
 
 .unset {
   opacity: 1;

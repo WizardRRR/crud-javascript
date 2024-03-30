@@ -79,13 +79,13 @@ function triggerAnimation(entries) {
 const observer = new IntersectionObserver(triggerAnimation,options)
 
 
-$$("#wrapped-users > div").forEach(element => {
+$$('#wrapped-users > div').forEach(element => {
   observer.observe(element);
 });
 
 
 export function observeNewElements() {
-  const newElements = $$("#wrapped-users > div:not(.unset)")
+  const newElements = $$('#wrapped-users > div:not(.unset)')
   newElements.forEach(element => {
     observer.observe(element)
   });
