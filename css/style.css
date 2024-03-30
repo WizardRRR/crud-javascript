@@ -100,6 +100,7 @@ main {
       &:hover::after {
         width: 100%;
       }
+
       &:hover {
         color: var(--white);
       }
@@ -151,6 +152,7 @@ main {
         top: 4px;
         right: 4px;
       }
+
       & button:nth-of-type(2) {
         background: red;
         bottom: 4px;
@@ -194,4 +196,11 @@ main {
     letter-spacing: 0em;
     /* border: 1px solid #ee8456; */
   }
+
+}
+
+
+.deleted {
+  transition: left 0.45s ease-in-out; 
+  background-color: #d7f0ff;
 }
