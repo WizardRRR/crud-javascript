@@ -1,4 +1,4 @@
-import { addListenersButton, resetFields, updateUI } from './features.js'
+import { addListenersButton, newUserAnimation, resetFields, updateUI } from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
@@ -46,7 +46,8 @@ function handleSubmitStoreUser() {
   const { value: age } = $('#age')
   saveUser({ name, lastName, age })
   updateUI()
-  addListenersButton()
+  newUserAnimation()
   resetFields()
+  addListenersButton()
   $('#name').focus()
 }

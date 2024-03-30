@@ -195,3 +195,20 @@ main {
     /* border: 1px solid #ee8456; */
   }
 }
+
+
+.animation {
+  animation: animation-add 0.5s ease;
+}
+
+@keyframes animation-add {
+  from {
+    transform: translate(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
