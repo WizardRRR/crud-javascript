@@ -3,7 +3,7 @@ import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
-import { createToast } from './toast.js';
+import { createToast } from './toast.js'
 
 const FORM = $('#form-users')
 
@@ -37,7 +37,7 @@ function handleSubmitUpdateUser() {
   updateUser(user)
   updateUI()
   addListenersButton()
-  createToast("warning", `Se actualizo datos de un usuario`);
+  createToast('warning', `Se actualizo datos de un usuario`)
   $('#btn-save-user').style.display = 'block'
   $('#btn-update-user').style.display = 'none'
   resetFields()
@@ -54,8 +54,34 @@ function handleSubmitStoreUser() {
   const { value: urlImage } = $('#urlImage')
   saveUser({ name, lastName, age, city, color, urlImage })
   createToast("success", `Se creó el usuario ${name}`, 2000);
+
   updateUI()
   addListenersButton()
   resetFields()
   $('#name').focus()
 }
+
+/** barra de busqueda */
+$('#search')
+$('.search-counter')
+
+const totalUserCount = getAllUsers().filter(user => user.deletedAt === null).length
+displayCounter(totalUserCount)
+
+$('#search').addEventListener('input', event => {
+  const searchTerm = event.target.value.toLowerCase()
+  const users = getAllUsers()
+  let counter = 0
+  
+  users.forEach(user => {
+    if (user.deletedAt === null) {
+      const search = user.name.toLowerCase().includes(searchTerm) || user.lastName.toLowerCase().includes(searchTerm)
+      if (search) {
+        counter++
+      }
+    }
+  })
+  updateUI(searchTerm)
+  displayCounter(counter)
+})
+
