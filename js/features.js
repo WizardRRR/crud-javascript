@@ -13,7 +13,7 @@ export function updateUI() {
   getAllUsers().forEach((user) => {
     if (user.deletedAt === null) {
       templateHMTL += `
-      <div id='${user.id}'>
+      <div id='${user.id}' class='user'>
         <span>${user.name} ${user.lastName}</span>
         <span>${user.age}</span>
         <button id='edit-${user.id}' class='button-edit'>
@@ -61,8 +61,9 @@ export function addListenersButton() {
 
 export function newUserAnimation() {
   const newUser = $("#wrapped-users").lastElementChild;
-  newUser.classList.add("animation");
+  newUser.scrollIntoView({ behavior: 'smooth', block: 'end' });
   newUser.addEventListener('animationend', () => {
     newUser.classList.remove("animation");
   });
+  newUser.classList.add("animation");
 }

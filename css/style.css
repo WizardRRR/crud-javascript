@@ -115,6 +115,8 @@ main {
     max-height: 50vh;
     scrollbar-gutter: stable;
     padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -125,11 +127,12 @@ main {
       display: flex;
       flex-direction: column;
       padding: 15px;
-      padding-right: 50px;
+      padding-right: 10px;
       background: var(--secondary-color);
       border-left: 10px solid #d7f0ff;
       border-radius: 8px;
       font-weight: var(--font-medium);
+      opacity: 0;
 
       & span {
         font-weight: inherit;
@@ -192,23 +195,30 @@ main {
     border-radius: 2px;
     background: #212121;
     letter-spacing: 0em;
-    /* border: 1px solid #ee8456; */
   }
 }
 
 
 .animation {
-  animation: animation-add 0.5s ease;
+  animation: animationAdd .6s ease;
 }
 
-@keyframes animation-add {
+.unset {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+
+@keyframes animationAdd {
   from {
     transform: translate(-100%);
     opacity: 0;
+    scale: .3;
   }
 
   to {
     transform: translate(0);
     opacity: 1;
+    scale: 1;
   }
 }

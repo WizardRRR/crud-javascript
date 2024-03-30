@@ -2,9 +2,15 @@ import { addListenersButton, newUserAnimation, resetFields, updateUI } from './f
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
-import { $ } from './jquery.js'
+import { $ , $$} from './jquery.js'
 
 const FORM = $('#form-users')
+
+const options={
+  root: null,
+  rootMargin:'0px',
+  threshold:.3
+}
 
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
@@ -51,3 +57,18 @@ function handleSubmitStoreUser() {
   addListenersButton()
   $('#name').focus()
 }
+
+function triggerAnimation(entries) {
+  entries.forEach(entry => {
+    const element = entry.target;
+    element.classList.toggle('unset', entry.isIntersecting);
+  });
+}
+
+const elements = $$("#wrapped-users > div");
+
+const observer = new IntersectionObserver(triggerAnimation,options);
+
+elements.forEach(element => {
+  observer.observe(element);
+});
