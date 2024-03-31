@@ -62,15 +62,15 @@ export function addListenersButton() {
     })
   })
 
-  let EditdUser = {};
+  let idUser = {};
   $$('.button-edit').forEach((buttonEdit) => {
     $(`#${buttonEdit.id}`).addEventListener('click', () => {
       const currentUser = getUserById(parseInt(buttonEdit.id.split('-')[1]))
       const name = currentUser.name;
       const id = currentUser.id;
-      if (EditdUser[currentUser] !== id) {
+      if (idUser[currentUser] !== id) {
         createToast('info', `Se está editando el usuario ${name}`, 2000);
-        EditdUser[currentUser] = id;
+        idUser[currentUser] = id;
       }
 
       // seleccionando inputs
