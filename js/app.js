@@ -7,6 +7,13 @@ import { confirmAction } from "./confirmation.js";
 
 const FORM = $("#form-users");
 
+// verificando si es la primera vez para setear users al local storage
+if (!localStorage.getItem("users")) setItemLocalStorage("users", []);
+updateUI();
+addListenersButton();
+$("#name").focus();
+FORM.setAttribute("mode", MODES_FORM.save);
+
 function handleSubmitUpdateUser() {
   const user = {
     id: parseInt($("#btn-update-user").getAttribute("user-id")),
@@ -35,13 +42,6 @@ function handleSubmitStoreUser() {
   resetFields();
   $("#name").focus();
 }
-
-// verificando si es la primera vez para setear users al local storage
-if (!localStorage.getItem("users")) setItemLocalStorage("users", []);
-updateUI();
-addListenersButton();
-$("#name").focus();
-FORM.setAttribute("mode", MODES_FORM.save);
 
 // añadiendo evento de enviar formulario
 FORM.addEventListener("submit", (event) => {
