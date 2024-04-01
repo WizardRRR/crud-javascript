@@ -8,13 +8,6 @@ import { $ , $$} from './jquery.js'
 const FORM = $('#form-users')
 
 
-const options={
-  root: null,
-  rootMargin:'0px',
-  threshold:.3
-}
-
-
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
 updateUI()
