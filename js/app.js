@@ -2,11 +2,9 @@ import { addListenersButton, newUserAnimation, resetFields, updateUI } from './f
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
-import { $ , $$} from './jquery.js'
-
+import { $ } from './jquery.js'
 
 const FORM = $('#form-users')
-
 
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
@@ -14,7 +12,6 @@ updateUI()
 addListenersButton()
 $('#name').focus()
 FORM.setAttribute('mode', MODES_FORM.save)
-
 
 // añadiendo evento de enviar formulario
 FORM.addEventListener('submit', event => {
@@ -24,9 +21,7 @@ FORM.addEventListener('submit', event => {
   if (currentMode === MODES_FORM.save) handleSubmitStoreUser()
 })
 
-
 $('#btn-update-user').addEventListener('click', handleSubmitUpdateUser)
-
 
 function handleSubmitUpdateUser() {
   const user = {
@@ -44,7 +39,6 @@ function handleSubmitUpdateUser() {
   $('#name').focus()
   FORM.setAttribute('mode', MODES_FORM.save)
 }
-
 
 function handleSubmitStoreUser() {
   const { value: name } = $('#name')
