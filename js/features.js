@@ -12,36 +12,32 @@ export function resetFields() {
   $('#urlImage').value = ''
 }
 
-export function updateUI(filterTerm = '') {
-  let templateHMTL = ``
-  const users = getAllUsers()
-
-  users.forEach(user => {
-    if (user.deletedAt === null) {
-      const searchTerm = filterTerm.toLowerCase()
-      const nameMatch = user.name.toLowerCase().includes(searchTerm)
-      const lastNameMatch = user.lastName.toLowerCase().includes(searchTerm)
-
-      if (nameMatch || lastNameMatch) {
-        templateHMTL += `
-        <div id='${user.id}'>
-          <span>${user.name} ${user.lastName}</span>
-          <span>${user.age}</span>
-          <button id='edit-${user.id}' class='button-edit'>
-            <img width=25 height=25 src='./assets/icon-edit.svg'/>
-          </button>
-          <button id='delete-${user.id}' class='button-delete'>
-            <img width=25 height=25 src='./assets/icon-delete.svg'/>
-          </button>
-        </div>
-        `
-      }
+export function updateUI() {
+  let templateHMTL = ``;
+  getAllUsers().forEach((user) => {
+    let url = "";
+    if (user.urlImage && user.urlImage.startsWith("https://")) {
+      url = `<img width=250 src='${user.urlImage}' alt='${user.name}'s Image' />`;
     }
-  })
-  $('#wrapped-users').innerHTML = templateHMTL
+    if (user.deletedAt === null) {
+      templateHMTL += `
+      <div style="border-left: 10px solid ${user.color}" id='${user.id}'>
+        <span>${user.name} ${user.lastName}</span>
+        <span>${user.age}</span>
+        <span>${user.city}</span>
+        ${url}
+        <button id='edit-${user.id}' class='button-edit'>
+          <img width=25 height=25 src='./assets/icon-edit.svg'/>
+        </button>
+        <button id='delete-${user.id}' class='button-delete'>
+          <img width=25 height=25 src='./assets/icon-delete.svg'/>
+        </button>
+      </div>
+      `;
+    }
+  });
+  $("#wrapped-users").innerHTML = templateHMTL;
 }
-
-
 
 export function addListenersButton() {
   $$('.button-delete').forEach((buttonDelete) => {
