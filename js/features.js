@@ -64,6 +64,7 @@ export function addListenersButton() {
     })
   })
 }
+
 export function orderByRecent() {
   const users = getAllUsers().filter(user => user.deletedAt === null)
   users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))

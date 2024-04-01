@@ -6,7 +6,6 @@ import { $ } from './jquery.js'
 import { createToast } from './toast.js';
 
 const FORM = $('#form-users')
-const SEEKS_FORM = $('#seeks')
 
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
@@ -42,13 +41,6 @@ function handleSubmitUpdateUser() {
   $('#name').focus()
   FORM.setAttribute('mode', MODES_FORM.save)
 }
-SEEKS_FORM.addEventListener('click', event => {
-  const target = event.target;
-  if (target.id === 'recent') orderByRecent();
-  if (target.id === 'ancient') orderByAncient();
-  if (target.id === 'ageOrder') orderByAge();
-  if (target.id === 'alphabet') orderByAlphabet();
-});
 
 function handleSubmitStoreUser() {
   const { value: name } = $('#name')
@@ -61,3 +53,9 @@ function handleSubmitStoreUser() {
   resetFields()
   $('#name').focus()
 }
+
+// eventos botones para ordenar
+document.getElementById('recent').addEventListener('click', orderByRecent)
+document.getElementById('ancient').addEventListener('click', orderByAncient)
+document.getElementById('ageOrder').addEventListener('click', orderByAge)
+document.getElementById('alphabet').addEventListener('click', orderByAlphabet)

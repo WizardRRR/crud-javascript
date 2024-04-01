@@ -84,7 +84,6 @@ main {
       text-transform: uppercase;
       border-radius: 3px;
       font-weight: var(--font-semibold);
-      margin-top: 10px;
 
       &::after {
         content: "";
@@ -106,7 +105,9 @@ main {
         color: var(--white);
       }
     }
-  
+    & button:nth-of-type(2) {
+      display: none;
+    }
   }
 
   & section {
@@ -191,6 +192,22 @@ main {
     border-radius: 2px;
     background: #212121;
     letter-spacing: 0em;
-    /* border: 1px solid #ee8456; */
+  }
+}
+
+.sortingButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  & button {
+    padding: 10px;
+    border: 2px solid #738bec;
+    font-size: var(--text-xs);
+    border-radius: 10px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #738bec;
+    }
   }
 }
