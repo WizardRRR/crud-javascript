@@ -111,11 +111,22 @@ main {
     }
   }
 
+  section::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  section::-webkit-scrollbar-thumb {
+    background: #b45f3a;
+    border-radius: 6px;
+  } 
+
   & section {
     width: 300px;
     max-height: 50vh;
     scrollbar-gutter: stable;
     padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -128,7 +139,7 @@ main {
       display: flex;
       flex-direction: column;
       padding: 15px;
-      padding-right: 50px;
+      padding-right: 10px;
       background: var(--secondary-color);
       border-left: 10px solid #d7f0ff;
       border-radius: 8px;
@@ -232,5 +243,24 @@ main {
   to {
     transform: translate(150%);
     opacity: 0;
+  }
+}
+
+/* Animaciones de entrada  */
+.animation {
+  animation: animationAdd .6s ease;
+}
+
+@keyframes animationAdd {
+  from {
+    transform: translate(-100%);
+    opacity: 0;
+    scale: .3;
+  }
+
+  to {
+    transform: translate(0);
+    opacity: 1;
+    scale: 1;
   }
 }

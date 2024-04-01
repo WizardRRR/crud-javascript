@@ -1,4 +1,14 @@
-import { addListenersButton, resetFields, updateUI, orderByRecent, orderByAncient, orderByAge, orderByAlphabet } from './features.js';
+
+import { 
+  addListenersButton, 
+  resetFields, 
+  updateUI, 
+  orderByRecent, 
+  orderByAncient, 
+  orderByAge, 
+  orderByAlphabet,
+  newUserAnimation 
+} from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
@@ -56,8 +66,9 @@ function handleSubmitStoreUser() {
   createToast("success", `Se creó el usuario ${name}`, 2000);
 
   updateUI()
-  addListenersButton()
+  newUserAnimation()
   resetFields()
+  addListenersButton()
   $('#name').focus()
 }
 
