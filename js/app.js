@@ -1,4 +1,4 @@
-import { addListenersButton, resetFields, updateUI } from './features.js'
+import { addListenersButton, resetFields, updateUI, orderByRecent, orderByAncient, orderByAge, orderByAlphabet } from './features.js';
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services.js'
 import { MODES_FORM } from './mode-forms.js'
@@ -60,6 +60,12 @@ function handleSubmitStoreUser() {
   resetFields()
   $('#name').focus()
 }
+
+// eventos botones para ordenar
+document.getElementById('recent').addEventListener('click', orderByRecent)
+document.getElementById('ancient').addEventListener('click', orderByAncient)
+document.getElementById('ageOrder').addEventListener('click', orderByAge)
+document.getElementById('alphabet').addEventListener('click', orderByAlphabet)
 
 /** barra de busqueda */
 $('#search')
