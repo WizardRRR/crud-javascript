@@ -141,7 +141,6 @@ main {
       border-left: 10px solid #d7f0ff;
       border-radius: 8px;
       font-weight: var(--font-medium);
-      opacity: 0;
 
       & span {
         font-weight: inherit;
@@ -212,13 +211,6 @@ main {
 .animation {
   animation: animationAdd .6s ease;
 }
-
-
-.unset {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-
 
 @keyframes animationAdd {
   from {

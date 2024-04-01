@@ -45,7 +45,6 @@ function handleSubmitUpdateUser() {
   updateUser(user)
   updateUI()
   addListenersButton()
-  observeNewElements()
   $('#btn-save-user').style.display = 'block'
   $('#btn-update-user').style.display = 'none'
   resetFields()
@@ -63,30 +62,5 @@ function handleSubmitStoreUser() {
   newUserAnimation()
   resetFields()
   addListenersButton()
-  observeNewElements()
   $('#name').focus()
-}
-
-
-function triggerAnimation(entries) {
-  entries.forEach(entry => {
-    const element = entry.target;
-    element.classList.toggle('unset', entry.isIntersecting)
-  });
-}
-
-
-const observer = new IntersectionObserver(triggerAnimation,options)
-
-
-$$('#wrapped-users > div').forEach(element => {
-  observer.observe(element);
-});
-
-
-export function observeNewElements() {
-  const newElements = $$('#wrapped-users > div:not(.unset)')
-  newElements.forEach(element => {
-    observer.observe(element)
-  });
 }

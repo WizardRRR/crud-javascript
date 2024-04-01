@@ -1,6 +1,5 @@
 import { deleteUser, getAllUsers, getUserById } from "./services.js"
 import { MODES_FORM } from "./mode-forms.js"
-import { observeNewElements } from './app.js'
 import { $, $$ } from "./jquery.js"
 
 
@@ -30,9 +29,6 @@ export function updateUI() {
     }
   });
   $("#wrapped-users").innerHTML = templateHMTL
-  $$("#wrapped-users > div").forEach(element => {
-    element.classList.add('user')
-  });
 }
 
 
@@ -43,7 +39,6 @@ export function addListenersButton() {
       updateUI()
       resetFields()
       addListenersButton()
-      observeNewElements()
       $("#btn-save-user").style.display = "block"
       $("#form-users").setAttribute("mode", MODES_FORM.save)
       $("#btn-update-user").style.display = "none"
