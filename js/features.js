@@ -49,6 +49,7 @@ export function addListenersButton() {
       $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
       $(`#${buttonDelete.id}`).parentNode.addEventListener('animationend', () => {
         deleteUser(parseInt(buttonDelete.id.split('-')[1]))
+        const name = getUserById(parseInt(buttonDelete.id.split('-')[1])).name
         createToast('danger', `Se eliminó el usuario ${name}`, 8000)
         updateUI()
         resetFields()
@@ -61,11 +62,16 @@ export function addListenersButton() {
     })
   })
 
+  let idUser = {};
   $$('.button-edit').forEach((buttonEdit) => {
     $(`#${buttonEdit.id}`).addEventListener('click', () => {
       const currentUser = getUserById(parseInt(buttonEdit.id.split('-')[1]))
-      const name = getUserById(parseInt(buttonEdit.id.split('-')[1])).name//Obtener nombre del usuario
-      createToast('info', `Se está editando el usuario ${name}`, 2000)
+      const name = currentUser.name;
+      const id = currentUser.id;
+      if (idUser[currentUser] !== id) {
+        createToast('info', `Se está editando el usuario ${name}`, 2000);
+        idUser[currentUser] = id;
+      }
 
       // seleccionando inputs
       $('#name').value = currentUser.name
