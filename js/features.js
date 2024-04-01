@@ -85,15 +85,6 @@ export function addListenersButton() {
   })
 }
 
-export function newUserAnimation() {
-  const newUser = $('#wrapped-users').lastElementChild
-  newUser.scrollIntoView({ behavior: 'smooth', block: 'end' })
-  newUser.addEventListener('animationend', () => {
-    newUser.classList.remove('animation')
-  })
-  newUser.classList.add('animation')
-}
-
 export function orderByRecent() {
   const users = getAllUsers().filter(user => user.deletedAt === null)
   users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
