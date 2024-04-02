@@ -1,0 +1,68 @@
+.container-modal {
+  background-color: rgba(255, 255, 255, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  position: fixed;
+  z-index: 9999999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content-modal {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--text-3xl);
+  background-color: #171414;
+  padding: 30px 40px;
+  border-radius: 10px;
+}
+
+.close-modal {
+  align-self: flex-end;
+  background-color: #ff0000;
+  padding: 10px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.modal-confirm,
+.modal-cancel {
+  width: 150px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #fff1;
+  transition: background-color 0.3s;
+}
+
+.modal-confirm:hover {
+  background-color: #0abf30;
+}
+
+.modal-cancel:hover {
+  background-color: #ff0000;
+}
+
+.modal-visible {
+  display: flex;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

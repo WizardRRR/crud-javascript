@@ -3,7 +3,6 @@ import { setItemLocalStorage } from "./localstorage.js";
 import { saveUser, updateUser } from "./services.js";
 import { MODES_FORM } from "./mode-forms.js";
 import { $ } from "./jquery.js";
-import { confirmAction } from "./confirmation.js";
 
 const FORM = $("#form-users");
 
@@ -49,20 +48,22 @@ FORM.addEventListener("submit", (event) => {
   const currentMode = FORM.getAttribute("mode");
 
   if (currentMode === MODES_FORM.update) {
-    if (confirmAction("¿Estás seguro de actualizar este usuario?")) {
-      handleSubmitUpdateUser();
-    }
+    handleSubmitUpdateUser();
+
+    $(".modal-confirm").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    $(".modal-cancel").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    $(".close-modal").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
   }
 
   if (currentMode === MODES_FORM.save) {
-    if (confirmAction("¿Estás seguro de guardar este usuario?")) {
-      handleSubmitStoreUser();
-    }
-  }
-});
-
-$("#btn-update-user").addEventListener("click", () => {
-  if (confirmAction("¿Estás seguro de actualizar este usuario?")) {
-    handleSubmitUpdateUser();
+    handleSubmitStoreUser();
   }
 });
