@@ -1,4 +1,4 @@
-import { deleteUser, getAllUsers, getUserById } from './services.js'
+import { deleteUser, getAllUsers, getUserById } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $, $$ } from './jquery.js'
 import { createToast } from './toast.js'
@@ -45,8 +45,8 @@ export function addListenersButton() {
       $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
       $(`#${buttonDelete.id}`).parentNode.addEventListener('animationend', () => {
         deleteUser(parseInt(buttonDelete.id.split('-')[1]))
-        const name = getUserById(parseInt(buttonDelete.id.split('-')[1])).name
-        createToast('danger', `Se eliminó el usuario ${name}`, 8000)
+        const user = getUserById(parseInt(buttonDelete.id.split('-')[1]))
+        createToast('danger', `Se eliminó el usuario ${user.name}`, 8000)
         updateUI()
         resetFields()
         addListenersButton()

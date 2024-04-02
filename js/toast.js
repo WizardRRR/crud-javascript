@@ -24,7 +24,6 @@ export const toastDetails = {
 }
 
 export const removeToast = (toast) => {
-    console.log(toast)
     toast.classList.add('hide')//agregar animación salida
     if (toast.timeoutId) clearTimeout(toast.timeoutId)
     setTimeout(() => toast.remove(), 300)//eliminar toast despues de la animación
