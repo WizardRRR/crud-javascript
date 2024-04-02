@@ -6,7 +6,8 @@ import {
   orderByAncient,
   orderByAge,
   orderByAlphabet,
-  newUserAnimation
+  newUserAnimation,
+  updateUIFiltered
 } from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
 import { saveUser, updateUser } from './services/user.js'
@@ -31,6 +32,8 @@ FORM.addEventListener('submit', (event) => {
   if (currentMode === MODES_FORM.update) handleSubmitUpdateUser()
   if (currentMode === MODES_FORM.save) handleSubmitStoreUser()
 })
+
+$("#deleted-users").addEventListener("click", updateUIFiltered);
 
 $('#btn-update-user').addEventListener('click', handleSubmitUpdateUser)
 

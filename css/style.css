@@ -264,3 +264,13 @@ main {
     scale: 1;
   }
 }
+#deleted-users {
+  padding-bottom: 1rem;
+}
+
+#deleted-users,
+.back {
+  column-gap: 1rem;
+  display: inline-flex;
+  cursor: pointer;
+}

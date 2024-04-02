@@ -1,8 +1,9 @@
-import { deleteUser, getAllUsers, getUserById } from './services/user.js'
+import { deleteUser, getAllUsers, getUserById, getAllDeletedUsers, restoreUserById } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $, $$ } from './jquery.js'
 import { createToast } from './toast.js'
 import formatDateString from './utils/format-date-string.js'
+import { createHistoryUser } from './services/history-activity-users.js'
 
 export function resetFields() {
   $('#name').value = ''
@@ -24,7 +25,7 @@ export function updateUI() {
     if (user.updatedAt) {
       updateDateHTML = `<span>${formatDateString(user.updatedAt)}</span>`
     }
-    
+
     let url = ''
     if (user.urlImage && user.urlImage.startsWith('https://')) {
       url = `<img width=250 src='${user.urlImage}' alt='${user.name}'s Image' />`
@@ -51,6 +52,37 @@ export function updateUI() {
   })
   $('#wrapped-users').innerHTML = templateHMTL
 }
+
+export function updateUIFiltered() {
+  let templateHMTL = `
+    <span class='back'>
+      <img width=20 height=20 src='./assets/icon-back.svg'/>
+      Regresar
+    </span>`
+  getAllDeletedUsers().forEach((user) => {
+    templateHMTL += `
+      <div id='${user.id}'>
+        <span>${user.name} ${user.lastName}</span>
+        <span>${user.age}</span>
+        <button id='restore-${user.id}' class='btn-restore-user'>
+          <img width=25 height=25 src='./assets/icon-restore.svg'/>
+        </button>
+      </div>
+      `
+  })
+  $('#wrapped-users').innerHTML = templateHMTL
+  $('.back').addEventListener('click', () => updateUI())
+  $$('.btn-restore-user').forEach(btnRestoreUser => {
+    const id = parseInt(btnRestoreUser.id.split('-')[1])
+    $(`#restore-${id}`).addEventListener('click', () => {
+      const userRestore = restoreUserById(id)
+      createToast('success', `Usuario ${userRestore.name} restaurado`)
+      createHistoryUser('RESTORE', userRestore)
+      updateUIFiltered()
+    })
+  })
+}
+
 
 export function addListenersButton() {
   $$('.button-delete').forEach((buttonDelete) => {
