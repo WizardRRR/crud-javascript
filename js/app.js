@@ -1,24 +1,25 @@
-
-import { 
-  addListenersButton, 
-  resetFields, 
-  updateUI, 
-  orderByRecent, 
-  orderByAncient, 
-  orderByAge, 
+import {
+  addListenersButton,
+  resetFields,
+  updateUI,
+  orderByRecent,
+  orderByAncient,
+  orderByAge,
   orderByAlphabet,
-  newUserAnimation 
+  newUserAnimation
 } from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
-import { saveUser, updateUser } from './services.js'
+import { saveUser, updateUser } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
 import { createToast } from './toast.js'
+import { createHistoryUser } from './services/history-activity-users.js'
 
 const FORM = $('#form-users')
 
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
+if (!localStorage.getItem('user-activity-history')) setItemLocalStorage('user-activity-history', [])
 updateUI()
 addListenersButton()
 $('#name').focus()
@@ -64,7 +65,6 @@ function handleSubmitStoreUser() {
   const { value: urlImage } = $('#urlImage')
   saveUser({ name, lastName, age, city, color, urlImage })
   createToast("success", `Se creó el usuario ${name}`, 2000);
-
   updateUI()
   newUserAnimation()
   resetFields()
@@ -77,28 +77,3 @@ document.getElementById('recent').addEventListener('click', orderByRecent)
 document.getElementById('ancient').addEventListener('click', orderByAncient)
 document.getElementById('ageOrder').addEventListener('click', orderByAge)
 document.getElementById('alphabet').addEventListener('click', orderByAlphabet)
-
-/** barra de busqueda */
-$('#search')
-$('.search-counter')
-
-const totalUserCount = getAllUsers().filter(user => user.deletedAt === null).length
-displayCounter(totalUserCount)
-
-$('#search').addEventListener('input', event => {
-  const searchTerm = event.target.value.toLowerCase()
-  const users = getAllUsers()
-  let counter = 0
-  
-  users.forEach(user => {
-    if (user.deletedAt === null) {
-      const search = user.name.toLowerCase().includes(searchTerm) || user.lastName.toLowerCase().includes(searchTerm)
-      if (search) {
-        counter++
-      }
-    }
-  })
-  updateUI(searchTerm)
-  displayCounter(counter)
-})
-

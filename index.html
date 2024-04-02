@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crud-Javascript</title>
-    <link rel="stylesheet" href="./css/normalize.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <script defer type="module" src="./js/app.js"></script>
-  </head>
 
-  <body>
-    <header>
-      <h1>CRUD - JAVASCRIPT</h1>
-    </header>
-    <main>
-      <!-- form -->
-      <form id="form-users">
-        <div class="inputBox">
-          <input id="name" required="" type="text" />
-          <span>Nombre</span>
-        </div>
-        <div class="inputBox">
-          <input id="lastName" required="" type="text" />
-          <span>Apellidos</span>
-        </div>
-        <div class="inputBox">
-          <input id="age" required="" type="number" />
-          <span>Edad</span>
-        </div>
-        <div class="inputBox">
-          <input id="city" required="" type="text" />
-          <span>Ciudad</span>
-        </div>
-        <div class="inputBox">
-          <input id="color" required="" type="color" />
-          <span>Color</span>
-        </div>
-        <div class="inputBox">
-          <input id="urlImage" required="" type="text"/>
-          <span>URL Imágen</span>
-        </div>
-        <button id="btn-save-user" type="submit">Añadir usuario</button>
-        <button type="button" id="btn-update-user">Actualizar usuario</button>
-      </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crud-Javascript</title>
+  <link rel="stylesheet" href="./css/normalize.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="module" defer src="./js/app.js"></script>
+</head>
 
-      <!-- buscador -->
-      <div class="sortingButtons" id="seeks">
-        <button type="button" id="recent">
-          reciente a antiguo
-        </button>
-        <button type="button" id="ancient">
-          antiguo a reciente
-        </button>
-        <button type="button" id="ageOrder">
-          Por Edad
-        </button>
-        <button type="button" id="alphabet">
-          Por Abecedario
-        </button>
+<body>
+  <header>
+    <h1>CRUD - JAVASCRIPT</h1>
+  </header>
+  <main>
+    <!-- form -->
+    <form id="form-users">
+      <div class="inputBox">
+        <input id="name" required="" type="text" />
+        <span>Nombre</span>
       </div>
-      <!-- staff list -->
-      <section id="wrapped-users">
-        <!-- ui mock
+      <div class="inputBox">
+        <input id="lastName" required="" type="text" />
+        <span>Apellidos</span>
+      </div>
+      <div class="inputBox">
+        <input id="age" required="" type="number" />
+        <span>Edad</span>
+      </div>
+      <div class="inputBox">
+        <input id="city" required="" type="text" />
+        <span>Ciudad</span>
+      </div>
+      <div class="inputBox">
+        <input id="color" required="" type="color" />
+        <span>Color</span>
+      </div>
+      <div class="inputBox">
+        <input id="urlImage" required="" type="text" />
+        <span>URL Imágen</span>
+      </div>
+      <button id="btn-save-user" type="submit">Añadir usuario</button>
+      <button type="button" id="btn-update-user">Actualizar usuario</button>
+    </form>
+    <!-- buscador -->
+    <div class="sortingButtons" id="seeks">
+      <button type="button" id="recent">
+        reciente a antiguo
+      </button>
+      <button type="button" id="ancient">
+        antiguo a reciente
+      </button>
+      <button type="button" id="ageOrder">
+        Por Edad
+      </button>
+      <button type="button" id="alphabet">
+        Por Abecedario
+      </button>
+    </div>
+    <!-- staff list -->
+    <section id="wrapped-users">
+      <!-- ui mock
         <div>
           <span>Royer Emilio Rutti Ramos</span>
           <span>22 Años</span>
@@ -69,9 +69,10 @@
           <button></button>
         </div> 
         -->
-      </section>
-    </main>
-    <ul class="notifications"></ul>
-    <footer></footer>
-  </body>
+    </section>
+  </main>
+  <ul class="notifications"></ul>
+  <footer></footer>
+</body>
+
 </html>

@@ -31,8 +31,8 @@ main {
     gap: 25px;
 
     & .container-field {
-        display: flex;
-        flex-direction: column;
+      display: flex;
+      flex-direction: column;
     }
 
     & .container-field label {
@@ -46,17 +46,37 @@ main {
     }
 
     & button {
-        align-self: end;
-        height: 35px;
-        padding: 5px 15px;
-        border-radius: 6px;
-        background: rgb(93, 184, 221);
-        font-weight: var(--font-bold);
+      align-self: end;
+      height: 35px;
+      padding: 5px 15px;
+      border-radius: 6px;
+      background: rgb(93, 184, 221);
+      font-weight: var(--font-bold);
     }
   }
 }
 
 /* estilo del contenedor de historiales */
-.wrapper-history {
+.wrapped-history {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.badge-history {
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.create {
+  background: rgba(10, 173, 10, 0.452);
+}
+
+.update {
+  background: rgba(26, 201, 201, 0.452);
+}
+
+.delete {
+  background: rgba(217, 57, 17, 0.452);
 }
