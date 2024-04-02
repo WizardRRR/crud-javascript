@@ -32,8 +32,9 @@ export const getUserById = userId => {
 export const getAllUsers = () => getItemLocalStorage('users') ?? []
 
 /** @returns {Array<User>}*/
-export const getAllFilteredUsers = () =>
-  getAllUsers().filter((user) => user.deletedAt !== null);
+export const getAllDeletedUsers = () =>
+  getAllUsers()
+    .filter((user) => user.deletedAt !== null)
 
 /** @param {newUser} newUser */
 export const saveUser = newUser => {
@@ -77,4 +78,20 @@ export const deleteUser = userId => {
     return user
   })
   setItemLocalStorage('users', updatedUsers)
+}
+
+export function restoreUserById(userId) {
+  const users = getAllUsers()
+  let indexUser
+  const updatedUsers = users.map((user, i) => {
+    if (user.id === userId) {
+      indexUser = i
+      const userUpdate = { ...user, deletedAt: null }
+      createHistoryUser('RESTORE', userUpdate)
+      return userUpdate
+    }
+    return user
+  })
+  setItemLocalStorage('users', updatedUsers)
+  return users[indexUser]
 }

@@ -1,4 +1,4 @@
-import { deleteUser, getAllUsers, getUserById, getAllFilteredUsers } from './services/user.js'
+import { deleteUser, getAllUsers, getUserById, getAllDeletedUsers, restoreUserById } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $, $$ } from './jquery.js'
 import { createToast } from './toast.js'
@@ -54,11 +54,11 @@ export function updateUI() {
 
 export function updateUIFiltered() {
   let templateHMTL = `
-    <span class="back">
+    <span class='back'>
       <img width=20 height=20 src='./assets/icon-back.svg'/>
       Regresar
-    </span>`;
-  getAllFilteredUsers().forEach((user) => {
+    </span>`
+  getAllDeletedUsers().forEach((user) => {
     templateHMTL += `
       <div id='${user.id}'>
         <span>${user.name} ${user.lastName}</span>
@@ -67,10 +67,18 @@ export function updateUIFiltered() {
           <img width=25 height=25 src='./assets/icon-restore.svg'/>
         </button>
       </div>
-      `;
-  });
-  $("#wrapped-users").innerHTML = templateHMTL;
-  $(".back").addEventListener("click", () => updateUI());
+      `
+  })
+  $('#wrapped-users').innerHTML = templateHMTL
+  $('.back').addEventListener('click', () => updateUI())
+  $$('.btn-restore-user').forEach(btnRestoreUser => {
+    const id = parseInt(btnRestoreUser.id.split('-')[1])
+    $(`#restore-${id}`).addEventListener('click', () => {
+      const userRestore = restoreUserById(id)
+      createToast('success', `Usuario ${userRestore.name} restaurado`)
+      updateUIFiltered()
+    })
+  })
 }
 
 
