@@ -2,6 +2,7 @@ import { deleteUser, getAllUsers, getUserById } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $, $$ } from './jquery.js'
 import { createToast } from './toast.js'
+import formatDateString from './utils/format-date-string.js'
 
 export function resetFields() {
   $('#name').value = ''
@@ -13,18 +14,30 @@ export function resetFields() {
 }
 
 export function updateUI() {
-  let templateHMTL = ``;
+  let templateHMTL = ``
+
   getAllUsers().forEach((user) => {
-    let url = "";
-    if (user.urlImage && user.urlImage.startsWith("https://")) {
-      url = `<img width=250 src='${user.urlImage}' alt='${user.name}'s Image' />`;
+
+    const dateCreate = formatDateString(user.createdAt)
+    let updateDateHTML = ''
+
+    if (user.updatedAt) {
+      updateDateHTML = `<span>${formatDateString(user.updatedAt)}</span>`
     }
+    
+    let url = ''
+    if (user.urlImage && user.urlImage.startsWith('https://')) {
+      url = `<img width=250 src='${user.urlImage}' alt='${user.name}'s Image' />`
+    }
+
     if (user.deletedAt === null) {
       templateHMTL += `
-      <div style="border-left: 10px solid ${user.color}" id='${user.id}'>
+      <div style='border-left: 10px solid ${user.color}' id='${user.id}'>
         <span>${user.name} ${user.lastName}</span>
         <span>${user.age}</span>
         <span>${user.city}</span>
+        <span>${dateCreate}</span>
+        ${updateDateHTML}
         ${url}
         <button id='edit-${user.id}' class='button-edit'>
           <img width=25 height=25 src='./assets/icon-edit.svg'/>
@@ -33,10 +46,10 @@ export function updateUI() {
           <img width=25 height=25 src='./assets/icon-delete.svg'/>
         </button>
       </div>
-      `;
+      `
     }
-  });
-  $("#wrapped-users").innerHTML = templateHMTL;
+  })
+  $('#wrapped-users').innerHTML = templateHMTL
 }
 
 export function addListenersButton() {
@@ -58,15 +71,15 @@ export function addListenersButton() {
     })
   })
 
-  let idUser = {};
+  let idUser = {}
   $$('.button-edit').forEach((buttonEdit) => {
     $(`#${buttonEdit.id}`).addEventListener('click', () => {
       const currentUser = getUserById(parseInt(buttonEdit.id.split('-')[1]))
-      const name = currentUser.name;
-      const id = currentUser.id;
+      const name = currentUser.name
+      const id = currentUser.id
       if (idUser[currentUser] !== id) {
-        createToast('info', `Se está editando el usuario ${name}`, 2000);
-        idUser[currentUser] = id;
+        createToast('info', `Se está editando el usuario ${name}`, 2000)
+        idUser[currentUser] = id
       }
 
       // seleccionando inputs
@@ -123,10 +136,10 @@ function displayUsers(users) {
           <img width=25 height=25 src='./assets/icon-delete.svg'/>
         </button>
       </div>
-    `;
-  });
+    `
+  })
   $('#wrapped-users').innerHTML = templateHMTL
-  addListenersButton();
+  addListenersButton()
 }
 
 export function newUserAnimation() {

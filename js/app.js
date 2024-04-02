@@ -13,7 +13,6 @@ import { saveUser, updateUser } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
 import { createToast } from './toast.js'
-import { createHistoryUser } from './services/history-activity-users.js'
 
 const FORM = $('#form-users')
 
