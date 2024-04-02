@@ -1,20 +1,32 @@
-import { addListenersButton, resetFields, updateUI, updateUIFiltered } from './features.js'
+import {
+  addListenersButton,
+  resetFields,
+  updateUI,
+  orderByRecent,
+  orderByAncient,
+  orderByAge,
+  orderByAlphabet,
+  newUserAnimation,
+  updateUIFiltered
+} from './features.js'
 import { setItemLocalStorage } from './localstorage.js'
-import { saveUser, updateUser } from './services.js'
+import { saveUser, updateUser } from './services/user.js'
 import { MODES_FORM } from './mode-forms.js'
 import { $ } from './jquery.js'
+import { createToast } from './toast.js'
 
 const FORM = $('#form-users')
 
 // verificando si es la primera vez para setear users al local storage
 if (!localStorage.getItem('users')) setItemLocalStorage('users', [])
+if (!localStorage.getItem('user-activity-history')) setItemLocalStorage('user-activity-history', [])
 updateUI()
 addListenersButton()
 $('#name').focus()
 FORM.setAttribute('mode', MODES_FORM.save)
 
 // añadiendo evento de enviar formulario
-FORM.addEventListener('submit', event => {
+FORM.addEventListener('submit', (event) => {
   event.preventDefault()
   const currentMode = FORM.getAttribute('mode')
   if (currentMode === MODES_FORM.update) handleSubmitUpdateUser()
@@ -30,11 +42,15 @@ function handleSubmitUpdateUser() {
     id: parseInt($('#btn-update-user').getAttribute('user-id')),
     name: $('#name').value,
     lastName: $('#lastName').value,
-    age: $('#age').value
+    age: $('#age').value,
+    city: $('#city').value,
+    color: $('#color').value,
+    urlImage: $('#urlImage').value,
   }
   updateUser(user)
   updateUI()
   addListenersButton()
+  createToast('warning', `Se actualizo datos de un usuario`)
   $('#btn-save-user').style.display = 'block'
   $('#btn-update-user').style.display = 'none'
   resetFields()
@@ -46,9 +62,20 @@ function handleSubmitStoreUser() {
   const { value: name } = $('#name')
   const { value: lastName } = $('#lastName')
   const { value: age } = $('#age')
-  saveUser({ name, lastName, age })
+  const { value: city } = $('#city')
+  const { value: color } = $('#color')
+  const { value: urlImage } = $('#urlImage')
+  saveUser({ name, lastName, age, city, color, urlImage })
+  createToast("success", `Se creó el usuario ${name}`, 2000);
   updateUI()
-  addListenersButton()
+  newUserAnimation()
   resetFields()
+  addListenersButton()
   $('#name').focus()
 }
+
+// eventos botones para ordenar
+document.getElementById('recent').addEventListener('click', orderByRecent)
+document.getElementById('ancient').addEventListener('click', orderByAncient)
+document.getElementById('ageOrder').addEventListener('click', orderByAge)
+document.getElementById('alphabet').addEventListener('click', orderByAlphabet)
