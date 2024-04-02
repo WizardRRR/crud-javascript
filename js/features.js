@@ -3,6 +3,7 @@ import { MODES_FORM } from './mode-forms.js'
 import { $, $$ } from './jquery.js'
 import { createToast } from './toast.js'
 import formatDateString from './utils/format-date-string.js'
+import { createHistoryUser } from './services/history-activity-users.js'
 
 export function resetFields() {
   $('#name').value = ''
@@ -76,6 +77,7 @@ export function updateUIFiltered() {
     $(`#restore-${id}`).addEventListener('click', () => {
       const userRestore = restoreUserById(id)
       createToast('success', `Usuario ${userRestore.name} restaurado`)
+      createHistoryUser('RESTORE', userRestore)
       updateUIFiltered()
     })
   })
