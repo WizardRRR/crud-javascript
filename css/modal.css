@@ -1,0 +1,85 @@
+.container-modal {
+  background-color: rgba(0, 0, 0, 0.422);
+  display: none;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 1;
+}
+
+.content-modal {
+  position: relative;
+  width: min(100%, 420px);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--text-3xl);
+  background-color: #171414;
+  padding: 30px 40px;
+  border-radius: 10px;
+
+  & h2 {
+    text-align: center;
+    text-wrap: balance;
+    font-weight: var(--font-semibold);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #ff0000;
+  border-radius: 5px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.modal-confirm,
+.modal-cancel {
+  width: 150px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #fff1;
+  transition: background-color 0.3s;
+}
+
+.modal-confirm {
+  background-color: var(--tertiary-color);
+}
+
+.modal-visible {
+  display: grid;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.out-visible {
+  animation: fadeOut 0.5s ease-in both;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

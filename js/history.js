@@ -2,6 +2,7 @@ import { $ } from './jquery.js'
 import { getAllHistorysUsers } from './services/history-activity-users.js'
 
 displayUI(getAllHistorysUsers().reverse())
+
 function displayUI(historysUsers) {
   let templateHMTL = ''
 

@@ -75,7 +75,20 @@ function handleSubmitStoreUser() {
 }
 
 // eventos botones para ordenar
-document.getElementById('recent').addEventListener('click', orderByRecent)
-document.getElementById('ancient').addEventListener('click', orderByAncient)
-document.getElementById('ageOrder').addEventListener('click', orderByAge)
-document.getElementById('alphabet').addEventListener('click', orderByAlphabet)
+$('#recent').addEventListener('click', orderByRecent)
+$('#ancient').addEventListener('click', orderByAncient)
+$('#ageOrder').addEventListener('click', orderByAge)
+$('#alphabet').addEventListener('click', orderByAlphabet)
+
+// modal
+const closeModal = () => {
+  $('#modal').classList.add('out-visible')
+  setTimeout(() => {
+    $('#modal').classList.remove('modal-visible')
+    $('#modal').classList.remove('out-visible')
+  }, 500)
+}
+
+$('#close-modal').addEventListener('click', closeModal)
+$('#btn-cancel').addEventListener('click', closeModal)
+

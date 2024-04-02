@@ -10,7 +10,7 @@ export function resetFields() {
   $('#lastName').value = ''
   $('#age').value = ''
   $('#city').value = ''
-  $('#color').value = ''
+  $('#color').value = '#000000'
   $('#urlImage').value = ''
 }
 
@@ -71,7 +71,10 @@ export function updateUIFiltered() {
       `
   })
   $('#wrapped-users').innerHTML = templateHMTL
-  $('.back').addEventListener('click', () => updateUI())
+  $('.back').addEventListener('click', () => {
+    updateUI()
+    addListenersButton()
+  })
   $$('.btn-restore-user').forEach(btnRestoreUser => {
     const id = parseInt(btnRestoreUser.id.split('-')[1])
     $(`#restore-${id}`).addEventListener('click', () => {
@@ -83,23 +86,37 @@ export function updateUIFiltered() {
   })
 }
 
-
 export function addListenersButton() {
   $$('.button-delete').forEach((buttonDelete) => {
     $(`#${buttonDelete.id}`).addEventListener('click', () => {
-      $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
-      $(`#${buttonDelete.id}`).parentNode.addEventListener('animationend', () => {
-        deleteUser(parseInt(buttonDelete.id.split('-')[1]))
-        const user = getUserById(parseInt(buttonDelete.id.split('-')[1]))
-        createToast('danger', `Se eliminó el usuario ${user.name}`, 8000)
-        updateUI()
-        resetFields()
-        addListenersButton()
-        $('#btn-save-user').style.display = 'block'
-        $('#form-users').setAttribute('mode', MODES_FORM.save)
-        $('#btn-update-user').style.display = 'none'
-        $('#name').focus()
-      })
+      $('#modal').classList.add('modal-visible')
+
+      const eventDeleteUser = () => {
+        console.log("jdwfjsldjflsdjlf")
+        $('#modal').classList.remove('out-visible')
+        $('#modal').classList.remove('modal-visible')
+
+        $(`#${buttonDelete.id}`).parentNode.classList.add('deleted')
+
+        const handleDeleteUser = () => {
+          deleteUser(parseInt(buttonDelete.id.split('-')[1]))
+          const user = getUserById(parseInt(buttonDelete.id.split('-')[1]))
+          createToast('danger', `Se eliminó el usuario ${user.name}`, 8000)
+          updateUI()
+          resetFields()
+          addListenersButton()
+          $('#btn-save-user').style.display = 'block'
+          $('#form-users').setAttribute('mode', MODES_FORM.save)
+          $('#btn-update-user').style.display = 'none'
+          $('#name').focus()
+          $('#btn-confirm').removeEventListener('click', eventDeleteUser)
+        }
+
+        $(`#${buttonDelete.id}`).parentNode.addEventListener('animationend', handleDeleteUser)
+      }
+
+      $('#btn-confirm').addEventListener('click', eventDeleteUser)
+
     })
   })
 

@@ -5,12 +5,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crud-Javascript</title>
-  <link rel="stylesheet" href="./css/normalize.css" />
+  <link rel="stylesheet" href="./css/global.css" />
   <link rel="stylesheet" href="./css/style.css" />
   <script type="module" defer src="./js/app.js"></script>
 </head>
 
 <body>
+  <!-- Ventana modal -->
+  <div class="container-modal" id="modal">
+    <div class="content-modal">
+      <button class="close-modal" id="close-modal">X</button>
+      <h2>¿Estás seguro de realizar los cambios?</h2>
+      <div class="modal-buttons">
+        <button id="btn-confirm" class="modal-confirm">Aceptar</button>
+        <button id="btn-cancel" class="modal-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
   <header>
     <h1>CRUD - JAVASCRIPT</h1>
   </header>
